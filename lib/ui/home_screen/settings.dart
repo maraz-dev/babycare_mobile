@@ -5,6 +5,8 @@ import 'package:hephzibah/common/commons.dart';
 import 'package:hephzibah/common/widgets/button.dart';
 import 'package:hephzibah/ui/home_screen/home_page.dart';
 import 'package:hephzibah/ui/home_screen/profile.dart';
+import 'package:hephzibah/ui/home_screen/schedule_appointment.dart';
+
 class Settings extends StatefulWidget {
   const Settings({Key? key}) : super(key: key);
 
@@ -18,15 +20,34 @@ class _SettingsState extends State<Settings> {
     bool switchBtn = true;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Settings', style: headerText.copyWith(color: Colors.black, fontSize: 18),),
+        title: Text(
+          'Settings',
+          style: headerText.copyWith(color: Colors.black, fontSize: 18),
+        ),
         actions: [
-          InkWell(onTap: null, child: SvgPicture.asset('assets/svg/calendar.svg'),),
-          SizedBox(width: 15,),
-          InkWell(onTap: null, child: SvgPicture.asset('assets/svg/bell.svg'),),
+          InkWell(
+            onTap: null,
+            child: SvgPicture.asset('assets/svg/calendar.svg'),
+          ),
+          SizedBox(
+            width: 15,
+          ),
+          InkWell(
+            onTap: null,
+            child: SvgPicture.asset('assets/svg/bell.svg'),
+          ),
         ],
         elevation: 0.0,
         backgroundColor: Colors.white,
-        leading: IconButton(icon: Icon(Icons.arrow_back, color: Colors.black,), onPressed: () { Navigator.pop(context); },),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: Container(
         padding: EdgeInsets.all(15),
@@ -43,7 +64,11 @@ class _SettingsState extends State<Settings> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Toggle Notifications', style: normalText.copyWith(color: Colors.white, fontSize: 16),),
+                  Text(
+                    'Toggle Notifications',
+                    style:
+                        normalText.copyWith(color: Colors.white, fontSize: 16),
+                  ),
                   CupertinoSwitch(
                     // overrides the default green color of the track
                     activeColor: Colors.white54,
@@ -61,13 +86,25 @@ class _SettingsState extends State<Settings> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10.0),
-              child: ButtonWidget(text: 'Book Appointment ', press: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfilePage())), BackgroundColor: primaryColor, radius: 4,),
+              child: ButtonWidget(
+                text: 'Book Appointment ',
+                press: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ScheduleAppointment())),
+                BackgroundColor: primaryColor,
+                radius: 4,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 5.0),
-              child: ButtonWidget(text: 'Log Out', press: () => _showLogoutModalDialog(context), BackgroundColor: primaryColor, radius: 4,),
+              child: ButtonWidget(
+                text: 'Log Out',
+                press: () => _showLogoutModalDialog(context),
+                BackgroundColor: primaryColor,
+                radius: 4,
+              ),
             ),
-
           ],
         ),
       ),
@@ -75,17 +112,18 @@ class _SettingsState extends State<Settings> {
   }
 
   //Logout Modal
-  _showLogoutModalDialog(context){
+  _showLogoutModalDialog(context) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return Dialog(
             shape: RoundedRectangleBorder(
-                borderRadius:BorderRadius.circular(20.0)),
+                borderRadius: BorderRadius.circular(20.0)),
             child: Container(
               constraints: BoxConstraints(maxHeight: 460),
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 22.0, horizontal: 20),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 22.0, horizontal: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -93,19 +131,41 @@ class _SettingsState extends State<Settings> {
                     Container(
                       height: 120,
                       decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: primaryColor.withOpacity(0.08),
-                        image: DecorationImage(image: AssetImage('assets/arrow.png'))
-                      ),
+                          shape: BoxShape.circle,
+                          color: primaryColor.withOpacity(0.08),
+                          image: DecorationImage(
+                              image: AssetImage('assets/arrow.png'))),
                     ),
-                    SizedBox(height: 25,),
-                    Text('Log out?', style: normalText.copyWith(fontSize: 22, color: Colors.black),),
-                    SizedBox(height: 10,),
-                    Text('Are you sure you want to log-out?', style: normalText.copyWith(fontSize: 15, color: Colors.black),),
-                    SizedBox(height: 20,),
+                    SizedBox(
+                      height: 25,
+                    ),
+                    Text(
+                      'Log out?',
+                      style: normalText.copyWith(
+                          fontSize: 22, color: Colors.black),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      'Are you sure you want to log-out?',
+                      style: normalText.copyWith(
+                          fontSize: 15, color: Colors.black),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 5.0),
-                      child: ButtonWidget(text: 'Log Out', press: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePage())), BackgroundColor: primaryColor, radius: 4,),
+                      child: ButtonWidget(
+                        text: 'Log Out',
+                        press: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const HomePage())),
+                        BackgroundColor: primaryColor,
+                        radius: 4,
+                      ),
                     ),
                   ],
                 ),

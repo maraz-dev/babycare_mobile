@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hephzibah/common/commons.dart';
-import 'package:hephzibah/ui/doctor_screens/auth/signin.dart';
+import 'package:hephzibah/ui/splash_screen/step1.dart';
 import 'package:onboarding/onboarding.dart';
+
 class OnBoardingOne extends StatefulWidget {
   const OnBoardingOne({Key? key}) : super(key: key);
 
@@ -24,19 +25,59 @@ class _OnBoardingOneState extends State<OnBoardingOne> {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-              Text('Skip', style: TextStyle(color: primaryColor, fontSize: 12, fontWeight: FontWeight.w400),),
-            ],),
-            SizedBox(height: 30,),
-            Text('Welcome', style: headerText,),
-            Text('to Digital Clinic', style: headerText.copyWith(color: darkColor),),
-            SizedBox(height: 20,),
-            Text('Far far away, behind the word mountains,', style: normalText,),
-            SizedBox(height: 5,),
-            Text('far from the countries Vokalia and Consonantia, there live the', style: normalText,),
-            SizedBox(height: 5,),
-            Text('blind texts.', style: normalText,),
-            SizedBox(height: 20,),
-            Center(child: Container(height:350,decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/onboard1.png'),fit: BoxFit.fill)),),),
+                Text(
+                  'Skip',
+                  style: TextStyle(
+                      color: primaryColor,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Text(
+              'Welcome',
+              style: headerText,
+            ),
+            Text(
+              'to Digital Clinic',
+              style: headerText.copyWith(color: darkColor),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              'Far far away, behind the word mountains,',
+              style: normalText,
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Text(
+              'far from the countries Vokalia and Consonantia, there live the',
+              style: normalText,
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Text(
+              'blind texts.',
+              style: normalText,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Center(
+              child: Container(
+                height: 350,
+                decoration: const BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage('assets/onboard1.png'),
+                        fit: BoxFit.fill)),
+              ),
+            ),
             //Image.asset('assets/onboard1.png',fit: BoxFit.fill,height: 300,),
           ],
         ),
@@ -53,19 +94,59 @@ class _OnBoardingOneState extends State<OnBoardingOne> {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-              Text('Skip', style: TextStyle(color: primaryColor, fontSize: 12, fontWeight: FontWeight.w400),),
-            ],),
-            SizedBox(height: 30,),
-            Text('Ask', style: headerText,),
-            Text('a Doctor Online', style: headerText.copyWith(color: darkColor),),
-            SizedBox(height: 20,),
-            Text('Far far away, behind the word mountains,', style: normalText,),
-            SizedBox(height: 5,),
-            Text('far from the countries Vokalia and Consonantia, there live the', style: normalText,),
-            SizedBox(height: 5,),
-            Text('blind texts.', style: normalText,),
-            SizedBox(height: 20,),
-            Center(child: Container(height:350,decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/onboard2.png'),fit: BoxFit.fill)),),),
+                Text(
+                  'Skip',
+                  style: TextStyle(
+                      color: primaryColor,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Text(
+              'Ask',
+              style: headerText,
+            ),
+            Text(
+              'a Doctor Online',
+              style: headerText.copyWith(color: darkColor),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              'Far far away, behind the word mountains,',
+              style: normalText,
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Text(
+              'far from the countries Vokalia and Consonantia, there live the',
+              style: normalText,
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Text(
+              'blind texts.',
+              style: normalText,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Center(
+              child: Container(
+                height: 350,
+                decoration: const BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage('assets/onboard2.png'),
+                        fit: BoxFit.fill)),
+              ),
+            ),
             //Image.asset('assets/onboard1.png',fit: BoxFit.fill,height: 300,),
           ],
         ),
@@ -99,7 +180,9 @@ class _OnBoardingOneState extends State<OnBoardingOne> {
                 'Next',
                 style: defaultSkipButtonTextStyle,
               ),
-              SizedBox(width: 10,),
+              SizedBox(
+                width: 10,
+              ),
               Icon(Icons.arrow_circle_right_outlined)
             ],
           ),
@@ -113,11 +196,12 @@ class _OnBoardingOneState extends State<OnBoardingOne> {
       color: primaryColor,
       child: InkWell(
         borderRadius: defaultProceedButtonBorderRadius,
-        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const SignIn())),
+        onTap: () => Navigator.push(
+            context, MaterialPageRoute(builder: (context) => const StepOne())),
         child: const Padding(
           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
           child: Text(
-            'Sign up',
+            'Continue',
             style: defaultProceedButtonTextStyle,
           ),
         ),

@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:hephzibah/common/commons.dart';
-import 'package:hephzibah/ui/home_screen/schedule_appointment.dart';
+
 class DescriptionWidget extends StatelessWidget {
   final List<String> icons;
   final List<String> titles;
   final List<String> descriptions;
+  final List<void Function()> onTapNav;
 
   const DescriptionWidget({
+    Key? key,
     required this.icons,
     required this.titles,
     required this.descriptions,
-  });
+    required this.onTapNav,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +37,7 @@ class DescriptionWidget extends StatelessWidget {
         ),
         itemBuilder: (BuildContext context, int index) {
           return InkWell(
-            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const ScheduleAppointment())),
+            onTap: onTapNav[index],
             child: Container(
               padding: EdgeInsets.all(15),
               margin: EdgeInsets.all(5),

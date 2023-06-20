@@ -3,7 +3,6 @@ import 'package:hephzibah/common/commons.dart';
 import 'package:hephzibah/common/widgets/authHeaderWidget.dart';
 import 'package:hephzibah/common/widgets/button.dart';
 import 'package:hephzibah/common/widgets/custom_text_input.dart';
-import 'package:hephzibah/ui/doctor_screens/auth/reset_password.dart';
 import 'package:hephzibah/ui/doctor_screens/auth/signin.dart';
 
 class SignUp extends StatelessWidget {
@@ -18,7 +17,8 @@ class SignUp extends StatelessWidget {
     TextEditingController _experienceController = TextEditingController();
     TextEditingController _passwordController = TextEditingController();
     return Scaffold(
-      appBar: authAppBar(context, 'Sign Up', 'Please enter your credentials to proceed', true),
+      appBar: authAppBar(
+          context, 'Sign Up', 'Please enter your credentials to proceed', true),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.all(20),
@@ -28,7 +28,11 @@ class SignUp extends StatelessWidget {
             children: [
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 5),
-                child: Text('Name', style: normalText.copyWith(fontSize: 15),),),
+                child: Text(
+                  'Name',
+                  style: normalText.copyWith(fontSize: 15),
+                ),
+              ),
               CustomTextInput(
                 textEditController: _nameController,
                 hintTextString: ' Name',
@@ -38,7 +42,11 @@ class SignUp extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 5),
-                child: Text('Email', style: normalText.copyWith(fontSize: 15),),),
+                child: Text(
+                  'Email',
+                  style: normalText.copyWith(fontSize: 15),
+                ),
+              ),
               CustomTextInput(
                 textEditController: _emailController,
                 hintTextString: ' Email',
@@ -48,7 +56,11 @@ class SignUp extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 5),
-                child: Text('Mobile Phone', style: normalText.copyWith(fontSize: 15),),),
+                child: Text(
+                  'Mobile Phone',
+                  style: normalText.copyWith(fontSize: 15),
+                ),
+              ),
               CustomTextInput(
                 textEditController: _phoneController,
                 hintTextString: 'Mobile Number ',
@@ -58,7 +70,11 @@ class SignUp extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 5),
-                child: Text('Current Hospital', style: normalText.copyWith(fontSize: 15),),),
+                child: Text(
+                  'Current Hospital',
+                  style: normalText.copyWith(fontSize: 15),
+                ),
+              ),
               CustomTextInput(
                 textEditController: _hospitalController,
                 hintTextString: 'Current Hospital',
@@ -68,7 +84,11 @@ class SignUp extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 5),
-                child: Text('Years Of Experience', style: normalText.copyWith(fontSize: 15),),),
+                child: Text(
+                  'Years Of Experience',
+                  style: normalText.copyWith(fontSize: 15),
+                ),
+              ),
               CustomTextInput(
                 textEditController: _experienceController,
                 hintTextString: 'Years of Experience',
@@ -78,7 +98,11 @@ class SignUp extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 5),
-                child: Text('Password', style: normalText.copyWith(fontSize: 15),),),
+                child: Text(
+                  'Password',
+                  style: normalText.copyWith(fontSize: 15),
+                ),
+              ),
               CustomTextInput(
                 textEditController: _passwordController,
                 hintTextString: 'Password',
@@ -86,16 +110,40 @@ class SignUp extends StatelessWidget {
                 cornerRadius: 5,
                 themeColor: lightPrimaryColor,
               ),
-              const SizedBox(height: 10,),
-              ButtonWidget(text: 'LOGIN', press: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const ResetPassword())), BackgroundColor: primaryColor, radius: 4,),
-              const SizedBox(height: 10,),
+              const SizedBox(
+                height: 10,
+              ),
+              ButtonWidget(
+                text: 'SIGN UP',
+                press: () {
+                  // return Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //       builder: (context) => const ResetPassword()));
+                },
+                BackgroundColor: primaryColor,
+                radius: 4,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text('Already have an account? ', style: normalText.copyWith(fontSize: 15),),
+                  Text(
+                    'Already have an account? ',
+                    style: normalText.copyWith(fontSize: 15),
+                  ),
                   InkWell(
-                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const ResetPassword())),
-                      child: Text('Log In', style: normalText.copyWith(fontSize: 15, color: primaryColor),)),
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SignIn())),
+                      child: Text(
+                        'Log In',
+                        style: normalText.copyWith(
+                            fontSize: 15, color: primaryColor),
+                      )),
                 ],
               )
             ],

@@ -3,9 +3,8 @@ import 'package:hephzibah/common/commons.dart';
 import 'package:hephzibah/common/widgets/authHeaderWidget.dart';
 import 'package:hephzibah/common/widgets/button.dart';
 import 'package:hephzibah/common/widgets/custom_text_input.dart';
-import 'package:hephzibah/ui/doctor_screens/auth/reset_password.dart';
-import 'package:hephzibah/ui/doctor_screens/auth/signin.dart';
-import 'package:hephzibah/ui/mother_screens/auth/reset_password.dart';
+import 'package:hephzibah/ui/home_screen/home_page.dart';
+import 'package:hephzibah/ui/mother_screens/auth/signin.dart';
 
 class MotherSignUp extends StatelessWidget {
   const MotherSignUp({Key? key}) : super(key: key);
@@ -19,7 +18,9 @@ class MotherSignUp extends StatelessWidget {
     TextEditingController _experienceController = TextEditingController();
     TextEditingController _passwordController = TextEditingController();
     return Scaffold(
-      appBar: authAppBar(context, 'Sign Up', 'Please enter your credentials to proceed', true, mother: true),
+      appBar: authAppBar(
+          context, 'Sign Up', 'Please enter your credentials to proceed', true,
+          mother: true),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.all(20),
@@ -29,7 +30,11 @@ class MotherSignUp extends StatelessWidget {
             children: [
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 5),
-                child: Text('Name', style: normalText.copyWith(fontSize: 15),),),
+                child: Text(
+                  'Name',
+                  style: normalText.copyWith(fontSize: 15),
+                ),
+              ),
               CustomTextInput(
                 textEditController: _nameController,
                 hintTextString: ' Name',
@@ -39,7 +44,11 @@ class MotherSignUp extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 5),
-                child: Text('Email', style: normalText.copyWith(fontSize: 15),),),
+                child: Text(
+                  'Email',
+                  style: normalText.copyWith(fontSize: 15),
+                ),
+              ),
               CustomTextInput(
                 textEditController: _emailController,
                 hintTextString: ' Email',
@@ -49,7 +58,11 @@ class MotherSignUp extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 5),
-                child: Text('Mobile Phone', style: normalText.copyWith(fontSize: 15),),),
+                child: Text(
+                  'Mobile Phone',
+                  style: normalText.copyWith(fontSize: 15),
+                ),
+              ),
               CustomTextInput(
                 textEditController: _phoneController,
                 hintTextString: 'Mobile Number ',
@@ -59,7 +72,11 @@ class MotherSignUp extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 5),
-                child: Text('Current Hospital', style: normalText.copyWith(fontSize: 15),),),
+                child: Text(
+                  'Current Hospital',
+                  style: normalText.copyWith(fontSize: 15),
+                ),
+              ),
               CustomTextInput(
                 textEditController: _hospitalController,
                 hintTextString: 'Current Hospital',
@@ -69,7 +86,11 @@ class MotherSignUp extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 5),
-                child: Text('Years Of Experience', style: normalText.copyWith(fontSize: 15),),),
+                child: Text(
+                  'Years Of Experience',
+                  style: normalText.copyWith(fontSize: 15),
+                ),
+              ),
               CustomTextInput(
                 textEditController: _experienceController,
                 hintTextString: 'Years of Experience',
@@ -79,7 +100,11 @@ class MotherSignUp extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 5),
-                child: Text('Password', style: normalText.copyWith(fontSize: 15),),),
+                child: Text(
+                  'Password',
+                  style: normalText.copyWith(fontSize: 15),
+                ),
+              ),
               CustomTextInput(
                 textEditController: _passwordController,
                 hintTextString: 'Password',
@@ -87,16 +112,36 @@ class MotherSignUp extends StatelessWidget {
                 cornerRadius: 5,
                 themeColor: lightPrimaryColor,
               ),
-              const SizedBox(height: 10,),
-              ButtonWidget(text: 'LOGIN', press: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const MotherResetPassword())), BackgroundColor: primaryColor, radius: 4,),
-              const SizedBox(height: 10,),
+              const SizedBox(
+                height: 10,
+              ),
+              ButtonWidget(
+                text: 'SIGN UP',
+                press: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const HomePage())),
+                BackgroundColor: primaryColor,
+                radius: 4,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text('Already have an account? ', style: normalText.copyWith(fontSize: 15),),
+                  Text(
+                    'Already have an account? ',
+                    style: normalText.copyWith(fontSize: 15),
+                  ),
                   InkWell(
-                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const MotherResetPassword())),
-                      child: Text('Log In', style: normalText.copyWith(fontSize: 15, color: primaryColor),)),
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MotherSignIn())),
+                      child: Text(
+                        'Log In',
+                        style: normalText.copyWith(
+                            fontSize: 15, color: primaryColor),
+                      )),
                 ],
               )
             ],
