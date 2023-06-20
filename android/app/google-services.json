@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1058431678855",
+    "project_id": "baby-care-5c9c9",
+    "storage_bucket": "baby-care-5c9c9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1058431678855:android:ee8770bf5829123d2cfb22",
+        "android_client_info": {
+          "package_name": "com.hephzibahs.app.hephzibah"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1058431678855-dap1ieaif2gsipj3mpq1legkb9ko37nn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCy-2VaGkmTlcTzztWfemi-eXumk2rkwuo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1058431678855-dap1ieaif2gsipj3mpq1legkb9ko37nn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1058431678855-b1809s5snasv6d9bsv4e9kvjk3h94cum.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1058431678855-b1809s5snasv6d9bsv4e9kvjk3h94cum</string>
+	<key>API_KEY</key>
+	<string>AIzaSyC916RR33zTABwcScLdccVSTpj0Yw12T4M</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1058431678855</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.hephzibahs.app.hephzibah</string>
+	<key>PROJECT_ID</key>
+	<string>baby-care-5c9c9</string>
+	<key>STORAGE_BUCKET</key>
+	<string>baby-care-5c9c9.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1058431678855:ios:ad273a568110b2d12cfb22</string>
+</dict>
+</plist>

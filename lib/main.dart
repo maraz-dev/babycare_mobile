@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:hephzibah/ui/splash_screen/step1.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:hephzibah/firebase_options.dart';
 
-void main() {
+Future<void> main() async {
   //WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   //FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
@@ -28,7 +32,10 @@ class MyApp extends StatelessWidget {
         // text styling for headlines, titles, bodies of text, and more.
         textTheme: const TextTheme(
           displayLarge: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
-          titleLarge: TextStyle(fontSize: 30.0, fontStyle: FontStyle.normal, fontWeight: FontWeight.w400),
+          titleLarge: TextStyle(
+              fontSize: 30.0,
+              fontStyle: FontStyle.normal,
+              fontWeight: FontWeight.w400),
           bodyMedium: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
         ),
       ),
@@ -110,7 +117,9 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-            Image.asset('assests/arrow.png',)
+            Image.asset(
+              'assests/arrow.png',
+            )
           ],
         ),
       ),
