@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hephzibah/common/commons.dart';
 import 'package:hephzibah/common/widgets/custom_text_input.dart';
@@ -9,104 +11,133 @@ import 'package:hephzibah/features/baby_care/presentation/pages/ui/home_screen/s
 import 'package:hephzibah/features/baby_care/presentation/pages/ui/home_screen/widgets/countdown.dart';
 import 'package:hephzibah/features/baby_care/presentation/pages/ui/home_screen/widgets/descriptionWidgets.dart';
 
-class HomePage extends StatelessWidget {
+import '../../../cubit/mother/mother_cubit.dart';
+
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    BlocProvider.of<MotherCubit>(context).getMothers();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     TextEditingController _searchController = TextEditingController();
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(160),
-        child: Container(
-          padding: const EdgeInsets.only(left: 20, right: 20, top: 60),
-          color: primaryColor,
-          child: Column(
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return BlocBuilder<MotherCubit, MotherState>(
+      builder: (_, state) {
+        if (state is MotherLoaded) {
+          final currentMother = state.mothers.firstWhere(
+            (mother) =>
+                mother.motherId == FirebaseAuth.instance.currentUser!.uid,
+          );
+          return Scaffold(
+            appBar: PreferredSize(
+              preferredSize: const Size.fromHeight(160),
+              child: Container(
+                padding: const EdgeInsets.only(left: 20, right: 20, top: 60),
+                color: primaryColor,
+                child: Column(
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Home Page',
+                          style: headerText.copyWith(color: Colors.white),
+                        ),
+                        InkWell(
+                          child: SvgPicture.asset('assets/svg/settings.svg'),
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const Settings())),
+                        ),
+                      ],
+                    ),
+                    CustomTextInput(
+                      textEditController: _searchController,
+                      hintTextString: 'Search...',
+                      inputType: InputType.Search,
+                      cornerRadius: 5,
+                      themeColor: lightPrimaryColor,
+                      enabled: true,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            body: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+              child: ListView(
                 children: [
-                  Text(
-                    'Home Page',
-                    style: headerText.copyWith(color: Colors.white),
-                  ),
-                  InkWell(
-                    child: SvgPicture.asset('assets/svg/settings.svg'),
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Settings())),
-                  ),
+                  const CountDownWidget(),
+                  const CountDownWidget(),
+                  DescriptionWidget(
+                    icons: const [
+                      'assets/svg/person.svg',
+                      'assets/svg/calendar.svg',
+                      'assets/svg/person_group.svg',
+                      'assets/svg/article.svg'
+                    ],
+                    titles: const [
+                      "My account",
+                      "Schedule Appointment",
+                      "Community of Mothers",
+                      "Knowledge Center"
+                    ],
+                    descriptions: const [
+                      "Details on Your Account",
+                      "Make an Appointment With a Doctor",
+                      "Connect with other Mothers ",
+                      "F.A.Q’s and Help"
+                    ],
+                    onTapNav: [
+                      () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ProfilePage(
+                                      currentMother: currentMother,
+                                    )));
+                      },
+                      () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const ScheduleAppointment()));
+                      },
+                      () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const KnowledgeCenter()));
+                      },
+                      () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const KnowledgeCenter()));
+                      },
+                    ],
+                  )
                 ],
               ),
-              CustomTextInput(
-                textEditController: _searchController,
-                hintTextString: 'Search...',
-                inputType: InputType.Search,
-                cornerRadius: 5,
-                themeColor: lightPrimaryColor,
-                enabled: true,
-              ),
-            ],
-          ),
-        ),
-      ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-        child: ListView(
-          children: [
-            CountDownWidget(),
-            CountDownWidget(),
-            DescriptionWidget(
-              icons: const [
-                'assets/svg/person.svg',
-                'assets/svg/calendar.svg',
-                'assets/svg/person_group.svg',
-                'assets/svg/article.svg'
-              ],
-              titles: const [
-                "My account",
-                "Schedule Appointment",
-                "Community of Mothers",
-                "Knowledge Center"
-              ],
-              descriptions: const [
-                "Details on Your Account",
-                "Make an Appointment With a Doctor",
-                "Connect with other Mothers ",
-                "F.A.Q’s and Help"
-              ],
-              onTapNav: [
-                () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const ProfilePage()));
-                },
-                () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const ScheduleAppointment()));
-                },
-                () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const KnowledgeCenter()));
-                },
-                () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const KnowledgeCenter()));
-                },
-              ],
-            )
-          ],
-        ),
-      ),
+            ),
+          );
+        }
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
     );
   }
 }

@@ -37,10 +37,12 @@ class AdminDashboard extends StatelessWidget {
                   ),
                   InkWell(
                     child: SvgPicture.asset('assets/svg/settings.svg'),
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const AdminDashboard())),
+                    onTap: () {
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) => const AdminDashboard()));
+                    },
                   ),
                 ],
               ),
@@ -128,7 +130,8 @@ class AdminDashboard extends StatelessWidget {
                       child: ButtonWidget(
                         text: 'Log Out',
                         press: () async {
-                           await BlocProvider.of<SigninCubit>(context).submitSignOut();
+                          await BlocProvider.of<SigninCubit>(context)
+                              .submitSignOut();
                           return Navigator.push(
                               context,
                               MaterialPageRoute(

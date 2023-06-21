@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:hephzibah/common/commons.dart';
+import 'package:hephzibah/features/baby_care/domain/entities/mother_entity.dart';
+
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  const ProfilePage({
+    Key? key,
+    required this.currentMother,
+  }) : super(key: key);
+  final MotherEntity currentMother;
 
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-    var height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(280),
@@ -18,12 +24,14 @@ class ProfilePage extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Profile', style: headerText.copyWith(color: Colors.white, fontSize: 26),),
+              Text(
+                'Profile',
+                style: headerText.copyWith(color: Colors.white, fontSize: 26),
+              ),
               SvgPicture.asset('assets/svg/settings.svg'),
             ],
           ),
         ),
-
       ),
       body: Container(
         color: primaryColor.withOpacity(0.08),
@@ -42,8 +50,7 @@ class ProfilePage extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(6)
-                ),
+                    borderRadius: BorderRadius.circular(6)),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -57,16 +64,24 @@ class ProfilePage extends StatelessWidget {
                             padding: EdgeInsets.all(5),
                             decoration: BoxDecoration(
                                 color: primaryColor.withOpacity(0.08),
-                                borderRadius: BorderRadius.circular(6)
-                            ),
+                                borderRadius: BorderRadius.circular(6)),
                             child: SvgPicture.asset('assets/svg/person.svg'),
                           ),
-                          SizedBox(width: 30,),
+                          SizedBox(
+                            width: 30,
+                          ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('Deveeprasad Acharya', style: normalText.copyWith(color: darkColor, fontSize: 18),),
-                              Text('20 yrs old', style: normalText.copyWith(fontSize: 18),),
+                              Text(
+                                currentMother.name,
+                                style: normalText.copyWith(
+                                    color: darkColor, fontSize: 18),
+                              ),
+                              Text(
+                                '29 yrs old',
+                                style: normalText.copyWith(fontSize: 18),
+                              ),
                             ],
                           )
                         ],
@@ -75,43 +90,54 @@ class ProfilePage extends StatelessWidget {
                     Divider(),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Text('Email', style: normalText.copyWith(fontSize: 18, color: darkColor),),
-                    ),
-                    const TextField(
-                      decoration: InputDecoration(
-                        labelText: 'nyorhephzibah@gmail.com'
+                      child: Text(
+                        'Email',
+                        style:
+                            normalText.copyWith(fontSize: 18, color: darkColor),
                       ),
+                    ),
+                    TextField(
+                      decoration:
+                          InputDecoration(labelText: currentMother.email),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Text('Phone Number', style: normalText.copyWith(fontSize: 18, color: darkColor),),
-                    ),
-                    const TextField(
-                      decoration: InputDecoration(
-                        labelText: '080123456789'
+                      child: Text(
+                        'Phone Number',
+                        style:
+                            normalText.copyWith(fontSize: 18, color: darkColor),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Text('Blood Group', style: normalText.copyWith(fontSize: 18, color: darkColor),),
+                    TextField(
+                      decoration:
+                          InputDecoration(labelText: currentMother.phoneNumber),
                     ),
-                    const TextField(
-                      decoration: InputDecoration(
-                        labelText: '0 +'
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Text('Baby’s Name', style: normalText.copyWith(fontSize: 18, color: darkColor),),
-                    ),
-                    const TextField(
-                      decoration: InputDecoration(
-                        labelText: 'Baby Boy '
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    //   child: Text(
+                    //     'Blood Group',
+                    //     style:
+                    //         normalText.copyWith(fontSize: 18, color: darkColor),
+                    //   ),
+                    // ),
+                    // const TextField(
+                    //   decoration: InputDecoration(labelText: '0 +'),
+                    // ),
+                    // Padding(
+                    //   padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    //   child: Text(
+                    //     'Baby’s Name',
+                    //     style:
+                    //         normalText.copyWith(fontSize: 18, color: darkColor),
+                    //   ),
+                    // ),
+                    // const TextField(
+                    //   decoration: InputDecoration(labelText: 'Baby Boy '),
+                    // ),
                   ],
                 ),
-            ),),
+              ),
+            ),
           ],
         ),
       ),
