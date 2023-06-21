@@ -90,7 +90,7 @@ class _SignUpState extends State<SignUp> {
                   CustomTextInput(
                     textEditController: _phoneController,
                     hintTextString: 'Mobile Number ',
-                    inputType: InputType.Number,
+                    inputType: InputType.Default,
                     cornerRadius: 5,
                     themeColor: lightPrimaryColor,
                   ),

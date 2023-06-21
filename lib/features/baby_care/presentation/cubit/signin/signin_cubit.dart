@@ -64,7 +64,6 @@ class SigninCubit extends Cubit<SigninState> {
     emit(SigninLoading());
     try {
       await signupUsecase.call(email, password);
-      print("signup");
       await createDoctorUsecase.call(
         name,
         email,
@@ -74,14 +73,11 @@ class SigninCubit extends Cubit<SigninState> {
         ninNumber,
         officialHospitalContact,
       );
-      print("registered");
       emit(SigninSuccess());
     } on SocketException catch (e) {
       emit(SigninFailure(e.message));
-      print(e.message);
-    } catch (_) {
-      emit(const SigninFailure("Firebase Exception"));
-      print("Firebase Exception");
+    } catch (e) {
+      emit(SigninFailure(e.toString()));
     }
   }
 
