@@ -99,6 +99,34 @@ class SignUp extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 5),
                 child: Text(
+                  'NIN number',
+                  style: normalText.copyWith(fontSize: 15),
+                ),
+              ),
+              CustomTextInput(
+                textEditController: _experienceController,
+                hintTextString: 'NIN Number',
+                inputType: InputType.Default,
+                cornerRadius: 5,
+                themeColor: lightPrimaryColor,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 5),
+                child: Text(
+                  'OFFICIAL HOSPITAL CONTACT',
+                  style: normalText.copyWith(fontSize: 15),
+                ),
+              ),
+              CustomTextInput(
+                textEditController: _experienceController,
+                hintTextString: 'Official Hospital Contact',
+                inputType: InputType.Default,
+                cornerRadius: 5,
+                themeColor: lightPrimaryColor,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 5),
+                child: Text(
                   'Password',
                   style: normalText.copyWith(fontSize: 15),
                 ),

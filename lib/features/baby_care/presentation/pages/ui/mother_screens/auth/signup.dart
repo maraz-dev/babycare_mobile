@@ -74,34 +74,6 @@ class MotherSignUp extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 5),
                 child: Text(
-                  'Current Hospital',
-                  style: normalText.copyWith(fontSize: 15),
-                ),
-              ),
-              CustomTextInput(
-                textEditController: _hospitalController,
-                hintTextString: 'Current Hospital',
-                inputType: InputType.Default,
-                cornerRadius: 5,
-                themeColor: lightPrimaryColor,
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 5),
-                child: Text(
-                  'Years Of Experience',
-                  style: normalText.copyWith(fontSize: 15),
-                ),
-              ),
-              CustomTextInput(
-                textEditController: _experienceController,
-                hintTextString: 'Years of Experience',
-                inputType: InputType.Default,
-                cornerRadius: 5,
-                themeColor: lightPrimaryColor,
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 5),
-                child: Text(
                   'Password',
                   style: normalText.copyWith(fontSize: 15),
                 ),
@@ -118,8 +90,10 @@ class MotherSignUp extends StatelessWidget {
               ),
               ButtonWidget(
                 text: 'SIGN UP',
-                press: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const BabyRegistration())),
+                press: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const BabyRegistration())),
                 BackgroundColor: primaryColor,
                 radius: 4,
               ),
