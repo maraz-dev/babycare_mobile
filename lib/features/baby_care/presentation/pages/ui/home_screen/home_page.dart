@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                           onTap: () => Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const Settings())),
+                                  builder: (context) =>  Settings(currentMother: currentMother,))),
                         ),
                       ],
                     ),
@@ -78,8 +78,14 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
               child: ListView(
                 children: [
-                  const CountDownWidget(),
-                  const CountDownWidget(),
+                  DeliveryCountDownWidget(
+                    label: 'Countdown to Next Appointment',
+                    currentMother: currentMother,
+                  ),
+                  DeliveryCountDownWidget(
+                    label: 'Countdown to Delivery Date',
+                    currentMother: currentMother,
+                  ),
                   DescriptionWidget(
                     icons: const [
                       'assets/svg/person.svg',
@@ -112,8 +118,9 @@ class _HomePageState extends State<HomePage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    const ScheduleAppointment()));
+                                builder: (context) => ScheduleAppointment(
+                                      currentMother: currentMother,
+                                    )));
                       },
                       () {
                         Navigator.push(

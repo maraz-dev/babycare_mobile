@@ -4,16 +4,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:hephzibah/common/commons.dart';
 import 'package:hephzibah/common/widgets/button.dart';
-import 'package:hephzibah/features/baby_care/presentation/pages/ui/home_screen/home_page.dart';
+import 'package:hephzibah/features/baby_care/domain/entities/mother_entity.dart';
 import 'package:hephzibah/features/baby_care/presentation/pages/ui/home_screen/schedule_appointment.dart';
 import 'package:hephzibah/features/baby_care/presentation/pages/ui/splash_screen/onBoardingOne.dart';
 
 import '../../../cubit/signin/signin_cubit.dart';
 
 class Settings extends StatefulWidget {
-  const Settings({Key? key}) : super(key: key);
+  const Settings({
+    Key? key,
+    required this.currentMother,
+  }) : super(key: key);
+  final MotherEntity currentMother;
 
   @override
   State<Settings> createState() => _SettingsState();
@@ -96,7 +101,7 @@ class _SettingsState extends State<Settings> {
                 press: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const ScheduleAppointment())),
+                        builder: (context) =>  ScheduleAppointment(currentMother: widget.currentMother,))),
                 BackgroundColor: primaryColor,
                 radius: 4,
               ),

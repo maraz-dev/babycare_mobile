@@ -30,6 +30,7 @@ environment:
 dependencies:
   cloud_firestore: ^4.8.1
   cupertino_icons: ^1.0.2
+  date_count_down: ^2.1.0
   dropdown_search: ^5.0.6
   equatable: ^2.0.5
   firebase_auth: ^4.6.3

@@ -1,14 +1,26 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:hephzibah/features/baby_care/domain/entities/doctor_entity.dart';
+import 'package:table_calendar/table_calendar.dart';
+
 import 'package:hephzibah/common/commons.dart';
 import 'package:hephzibah/common/widgets/button.dart';
-import 'package:table_calendar/table_calendar.dart';
+import 'package:hephzibah/features/baby_care/domain/entities/mother_entity.dart';
 
 import '../../../../../../common/utils.dart';
 import 'knowledge_center.dart';
+
 class ViewDoctor extends StatefulWidget {
-  const ViewDoctor({Key? key}) : super(key: key);
+  const ViewDoctor({
+    Key? key,
+    required this.currentMother,
+    required this.selectedLocation,
+    required this.selectedDoctor,
+    required this.selectedHospital,
+  }) : super(key: key);
+  final MotherEntity currentMother;
+  final String selectedLocation;
+  final DoctorEntity selectedDoctor;
+  final String selectedHospital;
 
   @override
   State<ViewDoctor> createState() => _ViewDoctorState();
@@ -91,10 +103,13 @@ class _ViewDoctorState extends State<ViewDoctor> {
       appBar: AppBar(
         backgroundColor: primaryColor,
         elevation: 0.0,
-        title: const Text('View Doctor', style: TextStyle(
-          color: Colors.white,
-          fontSize: 18,
-        ),),
+        title: const Text(
+          'View Doctor',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -102,21 +117,42 @@ class _ViewDoctorState extends State<ViewDoctor> {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                const Divider(thickness: 1,),
-                SizedBox(height: 15,),
+                const Divider(
+                  thickness: 1,
+                ),
+                SizedBox(
+                  height: 15,
+                ),
                 Image.asset('assets/Avatar.png'),
-                SizedBox(height: 15,),
-                Text('Dr. Kenjo Assou',style: headerText.copyWith(fontSize: 22, color: Colors.black),),
-                SizedBox(height: 5,),
-                Text('080123456789', style: normalText.copyWith(fontSize: 16),),
-                SizedBox(height: 10,),
+                SizedBox(
+                  height: 15,
+                ),
+                Text(
+                  widget.selectedDoctor.name,
+                  style: headerText.copyWith(fontSize: 22, color: Colors.black),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  widget.selectedDoctor.phoneNumber,
+                  style: normalText.copyWith(fontSize: 16),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(Icons.star),
-                    SizedBox(width: 10,),
-                    Text('4.7', style: headerText.copyWith(fontSize: 20),),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      '4.7',
+                      style: headerText.copyWith(fontSize: 20),
+                    ),
                   ],
                 ),
                 Column(
@@ -130,11 +166,21 @@ class _ViewDoctorState extends State<ViewDoctor> {
                               Row(
                                 children: [
                                   Icon(Icons.location_on),
-                                  SizedBox(width: 5,),
-                                  Text('New York', style: headerText.copyWith(fontSize: 14, color: Colors.black),)
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(
+                                    widget.selectedLocation,
+                                    style: headerText.copyWith(
+                                        fontSize: 14, color: Colors.black),
+                                  )
                                 ],
                               ),
-                              Text('Location', style: normalText,textAlign: TextAlign.left,)
+                              Text(
+                                'Location',
+                                style: normalText,
+                                textAlign: TextAlign.left,
+                              )
                             ],
                           ),
                         ),
@@ -149,24 +195,44 @@ class _ViewDoctorState extends State<ViewDoctor> {
                               Row(
                                 children: [
                                   Icon(Icons.light_mode),
-                                  SizedBox(width: 5,),
-                                  Text('20 Years', style: headerText.copyWith(fontSize: 14, color: Colors.black),)
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(
+                                    '${widget.selectedDoctor.yearsOfExperience} Years',
+                                    style: headerText.copyWith(
+                                        fontSize: 14, color: Colors.black),
+                                  )
                                 ],
                               ),
-                              Text('Experience', style: normalText,textAlign: TextAlign.left,)
+                              Text(
+                                'Experience',
+                                style: normalText,
+                                textAlign: TextAlign.left,
+                              )
                             ],
                           ),
                         ),
                       ],
                     ),
-                    Divider(thickness: 1,),
+                    Divider(
+                      thickness: 1,
+                    ),
                   ],
                 ),
-                SizedBox(height: 15,),
+                SizedBox(
+                  height: 15,
+                ),
                 InkWell(
-                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> TableEventsExample())),
-                    child: Text('Book Appointment Date', style: headerText.copyWith(color: Color(0xff222B45), fontSize: 15),)),
-
+                    onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TableEventsExample())),
+                    child: Text(
+                      'Book Appointment Date',
+                      style: headerText.copyWith(
+                          color: Color(0xff222B45), fontSize: 15),
+                    )),
                 TableCalendar<Event>(
                   firstDay: kFirstDay,
                   lastDay: kLastDay,
@@ -211,28 +277,42 @@ class _ViewDoctorState extends State<ViewDoctor> {
                           decoration: BoxDecoration(
                               border: Border.all(style: BorderStyle.none),
                               borderRadius: BorderRadius.circular(2.0),
-                              shape: BoxShape.rectangle
-                          ),
+                              shape: BoxShape.rectangle),
                           child: InkWell(
                             onTap: () => print('${value[index]}'),
                             child: Container(
                               color: primaryColor.withOpacity(0.08),
                               height: 1,
-                              child: Center(child: Text('13:00 AM', style: headerText.copyWith(fontSize: 16),)),
+                              child: Center(
+                                  child: Text(
+                                '13:00 AM',
+                                style: headerText.copyWith(fontSize: 16),
+                              )),
                             ),
                           ),
                         );
-                      }, gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 4,
-                      //crossAxisSpacing: 0.0,
-                      mainAxisSpacing: 5.0,
-                      //childAspectRatio: 1.0, // Adjust the aspect ratio as needed
-                    ),);
+                      },
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 4,
+                        //crossAxisSpacing: 0.0,
+                        mainAxisSpacing: 5.0,
+                        //childAspectRatio: 1.0, // Adjust the aspect ratio as needed
+                      ),
+                    );
                   },
                 ),
                 Padding(
                   padding: const EdgeInsets.all(18.0),
-                  child: ButtonWidget(text: 'Book Appointment ', press: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const KnowledgeCenter())), BackgroundColor: primaryColor, radius: 4,),
+                  child: ButtonWidget(
+                    text: 'Book Appointment ',
+                    press: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const KnowledgeCenter())),
+                    BackgroundColor: primaryColor,
+                    radius: 4,
+                  ),
                 ),
               ],
             ),
@@ -371,25 +451,30 @@ class _TableEventsExampleState extends State<TableEventsExample> {
                         vertical: 4.0,
                       ),
                       decoration: BoxDecoration(
-                        border: Border.all(style: BorderStyle.none),
-                        borderRadius: BorderRadius.circular(2.0),
-                        shape: BoxShape.rectangle
-                      ),
+                          border: Border.all(style: BorderStyle.none),
+                          borderRadius: BorderRadius.circular(2.0),
+                          shape: BoxShape.rectangle),
                       child: InkWell(
                         onTap: () => print('${value[index]}'),
                         child: Container(
                           color: primaryColor.withOpacity(0.08),
                           height: 1,
-                          child: Center(child: Text('13:00 AM', style: headerText.copyWith(fontSize: 16),)),
+                          child: Center(
+                              child: Text(
+                            '13:00 AM',
+                            style: headerText.copyWith(fontSize: 16),
+                          )),
                         ),
                       ),
                     );
-                  }, gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4,
-                  //crossAxisSpacing: 0.0,
-                  mainAxisSpacing: 5.0,
-                  //childAspectRatio: 1.0, // Adjust the aspect ratio as needed
-                ),);
+                  },
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,
+                    //crossAxisSpacing: 0.0,
+                    mainAxisSpacing: 5.0,
+                    //childAspectRatio: 1.0, // Adjust the aspect ratio as needed
+                  ),
+                );
               },
             ),
           ),
