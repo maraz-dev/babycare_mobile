@@ -39,6 +39,7 @@ class FirebaseRemoteDatasourceImpl implements FirebaseRemoteDatasource {
   final _doctorCollection = FirebaseFirestore.instance.collection('doctors');
   final _motherCollection = FirebaseFirestore.instance.collection('mothers');
   final _babyCollection = FirebaseFirestore.instance.collection('babies');
+  final _userCollection = FirebaseFirestore.instance.collection('users');
   @override
   Future<void> createBaby(
       String babyId,
@@ -67,6 +68,10 @@ class FirebaseRemoteDatasourceImpl implements FirebaseRemoteDatasource {
       String officialHospitalContact) async {
     _doctorCollection.doc(_auth.currentUser!.uid).get().then((doctor) {
       if (!doctor.exists) {
+        _userCollection.doc(_auth.currentUser!.uid).set({
+          'uid': _auth.currentUser!.uid,
+          'class': 'doctor',
+        });
         final newDoctor = DoctorModel(
           doctorId: _auth.currentUser!.uid,
           name: name,
@@ -92,6 +97,10 @@ class FirebaseRemoteDatasourceImpl implements FirebaseRemoteDatasource {
   ) async {
     _motherCollection.doc(_auth.currentUser!.uid).get().then((mother) {
       if (!mother.exists) {
+        _userCollection.doc(_auth.currentUser!.uid).set({
+          'uid': _auth.currentUser!.uid,
+          'class': 'mother',
+        });
         final newMother = MotherModel(
           motherId: _auth.currentUser!.uid,
           name: name,

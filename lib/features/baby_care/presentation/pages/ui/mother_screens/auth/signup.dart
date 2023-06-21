@@ -26,7 +26,6 @@ class _MotherSignUpState extends State<MotherSignUp> {
     TextEditingController _emailController = TextEditingController();
     TextEditingController _phoneController = TextEditingController();
     TextEditingController _passwordController = TextEditingController();
-    String babyId = "";
     return Scaffold(
       appBar: authAppBar(
           context, 'Sign Up', 'Please enter your credentials to proceed', true,
@@ -34,12 +33,13 @@ class _MotherSignUpState extends State<MotherSignUp> {
       body: BlocConsumer<SigninCubit, SigninState>(
         listener: (context, state) {
           if (state is SigninSuccess) {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => BabyRegistration(
-                          babyId: babyId,
-                        )));
+            // print("BABY ID IS: $babyId");
+            // Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //         builder: (context) => BabyRegistration(
+            //               babyId: babyId,
+            //             )));
           }
         },
         builder: (context, state) {
@@ -118,7 +118,8 @@ class _MotherSignUpState extends State<MotherSignUp> {
                     text: 'SIGN UP',
                     press: () async {
                       var uuid = const Uuid();
-                      babyId = uuid.v4();
+                      final String babyId = uuid.v4();
+
                       await BlocProvider.of<SigninCubit>(context)
                           .registerMother(
                         email: _emailController.text.trim(),
@@ -127,6 +128,12 @@ class _MotherSignUpState extends State<MotherSignUp> {
                         phoneNumber: _phoneController.text.trim(),
                         babyId: babyId,
                       );
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => BabyRegistration(
+                                    babyId: babyId,
+                                  )));
                     },
                     BackgroundColor: primaryColor,
                     radius: 4,
