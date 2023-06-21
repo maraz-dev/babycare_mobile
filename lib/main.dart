@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hephzibah/ui/splash_screen/onBoardingOne.dart';
+import 'package:hephzibah/features/baby_care/presentation/pages/ui/splash_screen/onBoardingOne.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:hephzibah/firebase_options.dart';
 
