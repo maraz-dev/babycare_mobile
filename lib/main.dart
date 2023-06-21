@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hephzibah/features/baby_care/presentation/cubit/baby/baby_cubit.dart';
+import 'package:hephzibah/features/baby_care/presentation/cubit/doctor/doctor_cubit.dart';
+import 'package:hephzibah/features/baby_care/presentation/cubit/mother/mother_cubit.dart';
 import 'package:hephzibah/features/baby_care/presentation/cubit/signin/signin_cubit.dart';
+import 'package:hephzibah/features/baby_care/presentation/cubit/user/user_cubit.dart';
 import 'package:hephzibah/features/baby_care/presentation/pages/ui/default_home.dart';
 import 'package:hephzibah/features/baby_care/presentation/pages/ui/splash_screen/onBoardingOne.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -28,6 +32,18 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<SigninCubit>(
           create: (_) => di.sl<SigninCubit>(),
+        ),
+        BlocProvider<UserCubit>(
+          create: (_) => di.sl<UserCubit>(),
+        ),
+        BlocProvider<DoctorCubit>(
+          create: (_) => di.sl<DoctorCubit>(),
+        ),
+        BlocProvider<MotherCubit>(
+          create: (_) => di.sl<MotherCubit>(),
+        ),
+        BlocProvider<BabyCubit>(
+          create: (_) => di.sl<BabyCubit>(),
         ),
       ],
       child: MaterialApp(

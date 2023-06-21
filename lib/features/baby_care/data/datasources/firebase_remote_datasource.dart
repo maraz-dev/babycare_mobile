@@ -4,6 +4,12 @@ import 'package:hephzibah/features/baby_care/data/models/baby_model.dart';
 import 'package:hephzibah/features/baby_care/data/models/doctor_model.dart';
 import 'package:hephzibah/features/baby_care/data/models/mother_model.dart';
 
+import '../../domain/entities/baby_entity.dart';
+import '../../domain/entities/doctor_entity.dart';
+import '../../domain/entities/mother_entity.dart';
+import '../../domain/entities/user_entity.dart';
+import '../models/user_model.dart';
+
 abstract class FirebaseRemoteDatasource {
   Future<void> signUp(String email, String password);
   Future<void> signIn(String email, String password);
@@ -32,6 +38,10 @@ abstract class FirebaseRemoteDatasource {
     String preferredDoctor,
   );
   Future<void> signOut();
+  Stream<List<UserEntity>> getUsers();
+  Stream<List<DoctorEntity>> getDoctors();
+  Stream<List<MotherEntity>> getMothers();
+  Stream<List<BabyEntity>> getBabies();
 }
 
 class FirebaseRemoteDatasourceImpl implements FirebaseRemoteDatasource {
@@ -70,7 +80,7 @@ class FirebaseRemoteDatasourceImpl implements FirebaseRemoteDatasource {
       if (!doctor.exists) {
         _userCollection.doc(_auth.currentUser!.uid).set({
           'uid': _auth.currentUser!.uid,
-          'class': 'doctor',
+          'userClass': 'doctor',
         });
         final newDoctor = DoctorModel(
           doctorId: _auth.currentUser!.uid,
@@ -99,7 +109,7 @@ class FirebaseRemoteDatasourceImpl implements FirebaseRemoteDatasource {
       if (!mother.exists) {
         _userCollection.doc(_auth.currentUser!.uid).set({
           'uid': _auth.currentUser!.uid,
-          'class': 'mother',
+          'userClass': 'mother',
         });
         final newMother = MotherModel(
           motherId: _auth.currentUser!.uid,
@@ -140,5 +150,35 @@ class FirebaseRemoteDatasourceImpl implements FirebaseRemoteDatasource {
       email: email,
       password: password,
     );
+  }
+
+  @override
+  Stream<List<BabyEntity>> getBabies() {
+    return _babyCollection.snapshots().map((querySnapshot) => querySnapshot.docs
+        .map((docSnapshot) => BabyModel.fromSnapshot(docSnapshot))
+        .toList());
+  }
+
+  @override
+  Stream<List<DoctorEntity>> getDoctors() {
+    return _doctorCollection.snapshots().map((querySnapshot) => querySnapshot
+        .docs
+        .map((docSnapshot) => DoctorModel.fromSnapshot(docSnapshot))
+        .toList());
+  }
+
+  @override
+  Stream<List<MotherEntity>> getMothers() {
+    return _motherCollection.snapshots().map((querySnapshot) => querySnapshot
+        .docs
+        .map((docSnapshot) => MotherModel.fromSnapshot(docSnapshot))
+        .toList());
+  }
+
+  @override
+  Stream<List<UserEntity>> getUsers() {
+    return _userCollection.snapshots().map((querySnapshot) => querySnapshot.docs
+        .map((docSnapshot) => UserModel.fromSnapshot(docSnapshot))
+        .toList());
   }
 }

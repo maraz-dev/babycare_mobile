@@ -1,5 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hephzibah/features/baby_care/data/datasources/firebase_remote_datasource.dart';
+import 'package:hephzibah/features/baby_care/domain/entities/baby_entity.dart';
+import 'package:hephzibah/features/baby_care/domain/entities/doctor_entity.dart';
+import 'package:hephzibah/features/baby_care/domain/entities/mother_entity.dart';
+import 'package:hephzibah/features/baby_care/domain/entities/user_entity.dart';
 import 'package:hephzibah/features/baby_care/domain/repositories/firebase_repository.dart';
 
 class FirebaseRepositoryImpl implements FirebaseRepository {
@@ -80,4 +84,24 @@ class FirebaseRepositoryImpl implements FirebaseRepository {
         email,
         password,
       );
+
+  @override
+  Stream<List<BabyEntity>> getBabies() {
+    return firebaseRemoteDatasource.getBabies();
+  }
+
+  @override
+  Stream<List<DoctorEntity>> getDoctors() {
+    return firebaseRemoteDatasource.getDoctors();
+  }
+
+  @override
+  Stream<List<MotherEntity>> getMothers() {
+    return firebaseRemoteDatasource.getMothers();
+  }
+
+  @override
+  Stream<List<UserEntity>> getUsers() {
+    return firebaseRemoteDatasource.getUsers();
+  }
 }
