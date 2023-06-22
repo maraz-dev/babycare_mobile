@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hephzibah/features/baby_care/domain/entities/appointment_entity.dart';
+import '../../domain/entities/appointment_entity.dart';
 
 class AppointmentModel extends AppointmentEntity {
   const AppointmentModel({

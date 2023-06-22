@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
-import 'package:hephzibah/common/commons.dart';
-import 'package:hephzibah/common/widgets/button.dart';
-import 'package:hephzibah/features/baby_care/domain/entities/doctor_entity.dart';
-import 'package:hephzibah/features/baby_care/presentation/pages/ui/admin_screens/admin_dash.dart';
+import '../../../../../../common/commons.dart';
+import '../../../../../../common/widgets/button.dart';
+import '../../../../domain/entities/doctor_entity.dart';
 
 class DoctorsProfile extends StatelessWidget {
   const DoctorsProfile({
@@ -16,7 +14,6 @@ class DoctorsProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-    var height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(280),
@@ -268,10 +265,7 @@ class DoctorsProfile extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 5.0),
                       child: ButtonWidget(
                         text: 'APPROVE',
-                        press: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const AdminDashboard())),
+                        press: () => Navigator.pop(context),
                         BackgroundColor: primaryColor,
                         radius: 4,
                       ),

@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hephzibah/features/baby_care/domain/entities/baby_entity.dart';
+import '../../domain/entities/baby_entity.dart';
 
 class BabyModel extends BabyEntity {
   const BabyModel({

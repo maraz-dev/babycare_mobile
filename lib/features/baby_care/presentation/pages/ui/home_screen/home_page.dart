@@ -2,14 +2,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hephzibah/common/commons.dart';
-import 'package:hephzibah/common/widgets/custom_text_input.dart';
-import 'package:hephzibah/features/baby_care/presentation/pages/ui/home_screen/knowledge_center.dart';
-import 'package:hephzibah/features/baby_care/presentation/pages/ui/home_screen/profile.dart';
-import 'package:hephzibah/features/baby_care/presentation/pages/ui/home_screen/schedule_appointment.dart';
-import 'package:hephzibah/features/baby_care/presentation/pages/ui/home_screen/settings.dart';
-import 'package:hephzibah/features/baby_care/presentation/pages/ui/home_screen/widgets/countdown.dart';
-import 'package:hephzibah/features/baby_care/presentation/pages/ui/home_screen/widgets/descriptionWidgets.dart';
+import '../../../../../../common/commons.dart';
+import '../../../../../../common/widgets/custom_text_input.dart';
+import 'knowledge_center.dart';
+import 'profile.dart';
+import 'schedule_appointment.dart';
+import 'settings.dart';
+import 'widgets/countdown.dart';
+import 'widgets/descriptionWidgets.dart';
 
 import '../../../cubit/mother/mother_cubit.dart';
 
@@ -58,7 +58,9 @@ class _HomePageState extends State<HomePage> {
                           onTap: () => Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>  Settings(currentMother: currentMother,))),
+                                  builder: (context) => Settings(
+                                        currentMother: currentMother,
+                                      ))),
                         ),
                       ],
                     ),
@@ -82,7 +84,7 @@ class _HomePageState extends State<HomePage> {
                     label: 'Countdown to Next Appointment',
                     currentMother: currentMother,
                   ),
-                  DeliveryCountDownWidget(
+                  NextAppointmentCountdownWidget(
                     label: 'Countdown to Delivery Date',
                     currentMother: currentMother,
                   ),

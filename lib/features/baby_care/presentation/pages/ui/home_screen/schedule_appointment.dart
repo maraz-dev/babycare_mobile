@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'package:hephzibah/common/commons.dart';
-import 'package:hephzibah/common/widgets/button.dart';
-import 'package:hephzibah/features/baby_care/domain/entities/mother_entity.dart';
-import 'package:hephzibah/features/baby_care/presentation/pages/ui/home_screen/view_doctor.dart';
-
+import '../../../../../../common/commons.dart';
+import '../../../../../../common/widgets/button.dart';
 import '../../../../domain/entities/doctor_entity.dart';
+import '../../../../domain/entities/mother_entity.dart';
 import '../../../cubit/doctor/doctor_cubit.dart';
+import 'view_doctor.dart';
 
 class ScheduleAppointment extends StatefulWidget {
   const ScheduleAppointment({

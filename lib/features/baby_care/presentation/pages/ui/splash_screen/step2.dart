@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hephzibah/common/commons.dart';
-import 'package:hephzibah/features/baby_care/presentation/pages/ui/doctor_screens/auth/signin.dart';
-import 'package:hephzibah/features/baby_care/presentation/pages/ui/doctor_screens/auth/signup.dart';
-import 'package:hephzibah/features/baby_care/presentation/pages/ui/mother_screens/auth/signin.dart';
-import 'package:hephzibah/features/baby_care/presentation/pages/ui/mother_screens/auth/signup.dart';
+import '../../../../../../common/commons.dart';
+import '../doctor_screens/auth/signin.dart';
+import '../doctor_screens/auth/signup.dart';
+import '../mother_screens/auth/signin.dart';
+import '../mother_screens/auth/signup.dart';
 
 class StepTwo extends StatelessWidget {
   const StepTwo({Key? key}) : super(key: key);

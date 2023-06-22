@@ -1,4 +1,4 @@
-import 'package:hephzibah/features/baby_care/domain/repositories/firebase_repository.dart';
+import '../repositories/firebase_repository.dart';
 
 class CreateMotherUsecase {
   final FirebaseRepository repository;

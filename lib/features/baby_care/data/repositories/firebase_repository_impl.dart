@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hephzibah/features/baby_care/data/datasources/firebase_remote_datasource.dart';
-import 'package:hephzibah/features/baby_care/domain/entities/baby_entity.dart';
-import 'package:hephzibah/features/baby_care/domain/entities/doctor_entity.dart';
-import 'package:hephzibah/features/baby_care/domain/entities/mother_entity.dart';
-import 'package:hephzibah/features/baby_care/domain/entities/user_entity.dart';
-import 'package:hephzibah/features/baby_care/domain/repositories/firebase_repository.dart';
+import '../datasources/firebase_remote_datasource.dart';
+import '../../domain/entities/appointment_entity.dart';
+import '../../domain/entities/baby_entity.dart';
+import '../../domain/entities/doctor_entity.dart';
+import '../../domain/entities/mother_entity.dart';
+import '../../domain/entities/user_entity.dart';
+import '../../domain/repositories/firebase_repository.dart';
 
 class FirebaseRepositoryImpl implements FirebaseRepository {
   final FirebaseRemoteDatasource firebaseRemoteDatasource;
@@ -120,5 +121,10 @@ class FirebaseRepositoryImpl implements FirebaseRepository {
       location,
       hospital,
     );
+  }
+
+  @override
+  Stream<List<AppointmentEntity>> getAppointments() {
+    return firebaseRemoteDatasource.getAppointments();
   }
 }

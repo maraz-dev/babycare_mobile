@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hephzibah/features/baby_care/presentation/cubit/doctor/doctor_cubit.dart';
-import 'package:hephzibah/features/baby_care/presentation/pages/ui/admin_screens/doctor_profile.dart';
+import '../../../cubit/doctor/doctor_cubit.dart';
+import '../admin_screens/doctor_profile.dart';
 
 import '../../../../../../common/commons.dart';
 import '../../../../../../common/widgets/button.dart';

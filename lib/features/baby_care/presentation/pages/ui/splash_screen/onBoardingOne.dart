@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hephzibah/common/commons.dart';
-import 'package:hephzibah/features/baby_care/presentation/pages/ui/splash_screen/step1.dart';
+import '../../../../../../common/commons.dart';
+import 'step1.dart';
 import 'package:onboarding/onboarding.dart';
 
 class OnBoardingOne extends StatefulWidget {

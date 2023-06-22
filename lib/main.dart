@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hephzibah/features/baby_care/presentation/cubit/appointment/appointment_cubit.dart';
-import 'package:hephzibah/features/baby_care/presentation/cubit/baby/baby_cubit.dart';
-import 'package:hephzibah/features/baby_care/presentation/cubit/doctor/doctor_cubit.dart';
-import 'package:hephzibah/features/baby_care/presentation/cubit/mother/mother_cubit.dart';
-import 'package:hephzibah/features/baby_care/presentation/cubit/signin/signin_cubit.dart';
-import 'package:hephzibah/features/baby_care/presentation/cubit/user/user_cubit.dart';
-import 'package:hephzibah/features/baby_care/presentation/pages/ui/default_home.dart';
-import 'package:hephzibah/features/baby_care/presentation/pages/ui/splash_screen/onBoardingOne.dart';
+import 'features/baby_care/presentation/cubit/appointment/appointment_cubit.dart';
+import 'features/baby_care/presentation/cubit/baby/baby_cubit.dart';
+import 'features/baby_care/presentation/cubit/doctor/doctor_cubit.dart';
+import 'features/baby_care/presentation/cubit/mother/mother_cubit.dart';
+import 'features/baby_care/presentation/cubit/signin/signin_cubit.dart';
+import 'features/baby_care/presentation/cubit/user/user_cubit.dart';
+import 'features/baby_care/presentation/pages/ui/default_home.dart';
+import 'features/baby_care/presentation/pages/ui/splash_screen/onBoardingOne.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:hephzibah/firebase_options.dart';
+import 'firebase_options.dart';
 import 'features/baby_care/presentation/cubit/auth/auth_cubit.dart';
 import 'injection_container.dart' as di;
 

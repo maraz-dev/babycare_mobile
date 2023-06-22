@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hephzibah/common/commons.dart';
-import 'package:hephzibah/common/widgets/authHeaderWidget.dart';
-import 'package:hephzibah/common/widgets/button.dart';
-import 'package:hephzibah/common/widgets/custom_text_input.dart';
-import 'package:hephzibah/features/baby_care/presentation/pages/ui/doctor_screens/auth/otp_page.dart';
-import 'package:hephzibah/features/baby_care/presentation/pages/ui/doctor_screens/auth/signup.dart';
+import '../../../../../../../common/commons.dart';
+import '../../../../../../../common/widgets/authHeaderWidget.dart';
+import '../../../../../../../common/widgets/button.dart';
+import '../../../../../../../common/widgets/custom_text_input.dart';
+import 'otp_page.dart';
 
 class ResetPassword extends StatelessWidget {
   const ResetPassword({Key? key}) : super(key: key);

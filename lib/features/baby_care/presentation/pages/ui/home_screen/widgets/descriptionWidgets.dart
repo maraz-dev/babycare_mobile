@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'package:hephzibah/common/commons.dart';
+import '../../../../../../../common/commons.dart';
 
 class DescriptionWidget extends StatelessWidget {
   final List<String> icons;

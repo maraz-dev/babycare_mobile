@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hephzibah/common/commons.dart';
-import 'package:hephzibah/common/widgets/authHeaderWidget.dart';
-import 'package:hephzibah/common/widgets/button.dart';
-import 'package:hephzibah/common/widgets/custom_text_input.dart';
-import 'package:hephzibah/features/baby_care/presentation/pages/ui/home_screen/home_page.dart';
-import 'package:hephzibah/features/baby_care/presentation/pages/ui/mother_screens/auth/signup.dart';
+import '../../../../../../../common/commons.dart';
+import '../../../../../../../common/widgets/authHeaderWidget.dart';
+import '../../../../../../../common/widgets/button.dart';
+import '../../../../../../../common/widgets/custom_text_input.dart';
+import '../../home_screen/home_page.dart';
+import 'signup.dart';
 
 import '../../../../cubit/signin/signin_cubit.dart';
 import '../../default_home.dart';

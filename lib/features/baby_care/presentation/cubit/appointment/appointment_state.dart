@@ -26,3 +26,12 @@ class AppointmentSuccess extends AppointmentState {
   @override
   List<Object?> get props => [];
 }
+
+class AppointmentLoaded extends AppointmentState {
+  final List<AppointmentEntity> appointments;
+  const AppointmentLoaded({
+    required this.appointments,
+  });
+  @override
+  List<Object?> get props => [appointments];
+}

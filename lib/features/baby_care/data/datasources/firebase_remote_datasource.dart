@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:hephzibah/features/baby_care/data/models/baby_model.dart';
-import 'package:hephzibah/features/baby_care/data/models/doctor_model.dart';
-import 'package:hephzibah/features/baby_care/data/models/mother_model.dart';
+import '../models/baby_model.dart';
+import '../models/doctor_model.dart';
+import '../models/mother_model.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../domain/entities/appointment_entity.dart';
 import '../../domain/entities/baby_entity.dart';
 import '../../domain/entities/doctor_entity.dart';
 import '../../domain/entities/mother_entity.dart';
@@ -51,6 +52,7 @@ abstract class FirebaseRemoteDatasource {
     String location,
     String hospital,
   );
+  Stream<List<AppointmentEntity>> getAppointments();
 }
 
 class FirebaseRemoteDatasourceImpl implements FirebaseRemoteDatasource {
@@ -212,5 +214,13 @@ class FirebaseRemoteDatasourceImpl implements FirebaseRemoteDatasource {
       hospital: hospital,
     ).toDocument();
     _appointmentCollection.doc(appointmentId).set(newAppointment);
+  }
+
+  @override
+  Stream<List<AppointmentEntity>> getAppointments() {
+    return _appointmentCollection.snapshots().map((querySnapshot) =>
+        querySnapshot.docs
+            .map((docSnapshot) => AppointmentModel.fromSnapshot(docSnapshot))
+            .toList());
   }
 }

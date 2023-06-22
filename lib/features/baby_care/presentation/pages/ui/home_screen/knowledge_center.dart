@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hephzibah/common/commons.dart';
-import 'package:hephzibah/features/baby_care/presentation/pages/ui/home_screen/widgets/knowledgeCenterWidget.dart';
+import '../../../../../../common/commons.dart';
+import 'widgets/knowledgeCenterWidget.dart';
 
 class KnowledgeCenter extends StatelessWidget {
   const KnowledgeCenter({Key? key}) : super(key: key);

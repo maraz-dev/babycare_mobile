@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hephzibah/common/commons.dart';
+import '../../../../../../../common/commons.dart';
 class KnowledgeCenterWidget extends StatelessWidget {
   final press;
   const KnowledgeCenterWidget({Key? key, this.press}) : super(key: key);

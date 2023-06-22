@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hephzibah/common/commons.dart';
+import '../commons.dart';
 
 class AuthHeaderWidget extends StatelessWidget {
   const AuthHeaderWidget({Key? key}) : super(key: key);

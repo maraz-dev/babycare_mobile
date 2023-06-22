@@ -1,4 +1,4 @@
-import 'package:hephzibah/features/baby_care/domain/entities/mother_entity.dart';
+import '../entities/mother_entity.dart';
 
 import '../repositories/firebase_repository.dart';
 

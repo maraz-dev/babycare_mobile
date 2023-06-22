@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hephzibah/common/commons.dart';
-import 'package:hephzibah/features/baby_care/presentation/pages/ui/splash_screen/step2.dart';
+import '../../../../../../common/commons.dart';
+import 'step2.dart';
 
 class StepOne extends StatelessWidget {
   const StepOne({Key? key}) : super(key: key);

@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hephzibah/features/baby_care/domain/entities/baby_entity.dart';
-import 'package:hephzibah/features/baby_care/domain/entities/doctor_entity.dart';
-import 'package:hephzibah/features/baby_care/domain/entities/mother_entity.dart';
+import '../entities/appointment_entity.dart';
+import '../entities/baby_entity.dart';
+import '../entities/doctor_entity.dart';
+import '../entities/mother_entity.dart';
 
 import '../entities/user_entity.dart';
 
@@ -44,4 +45,5 @@ abstract class FirebaseRepository {
     String location,
     String hospital,
   );
+  Stream<List<AppointmentEntity>> getAppointments();
 }

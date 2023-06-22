@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hephzibah/common/commons.dart';
-import 'package:hephzibah/common/widgets/authHeaderWidget.dart';
-import 'package:hephzibah/common/widgets/button.dart';
-import 'package:hephzibah/common/widgets/custom_text_input.dart';
-import 'package:hephzibah/features/baby_care/presentation/pages/ui/doctor_screens/auth/new_password.dart';
+import '../../../../../../../common/commons.dart';
+import '../../../../../../../common/widgets/authHeaderWidget.dart';
+import '../../../../../../../common/widgets/button.dart';
+import '../../../../../../../common/widgets/custom_text_input.dart';
+import 'new_password.dart';
 class OTPPage extends StatelessWidget {
   const OTPPage({Key? key}) : super(key: key);
 

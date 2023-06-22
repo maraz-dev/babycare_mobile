@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'package:hephzibah/common/commons.dart';
-import 'package:hephzibah/features/baby_care/domain/entities/mother_entity.dart';
+import '../../../../../../common/commons.dart';
+import '../../../../domain/entities/mother_entity.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({

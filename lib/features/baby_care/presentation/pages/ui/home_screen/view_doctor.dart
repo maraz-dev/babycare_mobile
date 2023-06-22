@@ -1,14 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hephzibah/features/baby_care/domain/entities/doctor_entity.dart';
-import 'package:hephzibah/features/baby_care/presentation/cubit/appointment/appointment_cubit.dart';
-import 'package:hephzibah/features/baby_care/presentation/pages/ui/home_screen/home_page.dart';
+import '../../../../domain/entities/doctor_entity.dart';
+import '../../../cubit/appointment/appointment_cubit.dart';
+import 'home_page.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import 'package:hephzibah/common/commons.dart';
-import 'package:hephzibah/common/widgets/button.dart';
-import 'package:hephzibah/features/baby_care/domain/entities/mother_entity.dart';
+import '../../../../../../common/commons.dart';
+import '../../../../../../common/widgets/button.dart';
+import '../../../../domain/entities/mother_entity.dart';
 
 import '../../../../../../common/utils.dart';
 

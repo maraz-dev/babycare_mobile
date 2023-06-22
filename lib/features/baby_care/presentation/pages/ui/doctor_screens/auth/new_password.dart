@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hephzibah/common/commons.dart';
-import 'package:hephzibah/common/widgets/authHeaderWidget.dart';
-import 'package:hephzibah/common/widgets/button.dart';
-import 'package:hephzibah/common/widgets/custom_text_input.dart';
-import 'package:hephzibah/features/baby_care/presentation/pages/ui/doctor_screens/auth/signup.dart';
+import '../../../../../../../common/commons.dart';
+import '../../../../../../../common/widgets/authHeaderWidget.dart';
+import '../../../../../../../common/widgets/button.dart';
+import '../../../../../../../common/widgets/custom_text_input.dart';
+import 'signup.dart';
 class NewPassword extends StatelessWidget {
   const NewPassword({Key? key}) : super(key: key);
 

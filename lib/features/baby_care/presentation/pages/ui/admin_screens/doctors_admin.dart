@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hephzibah/common/commons.dart';
-import 'package:hephzibah/features/baby_care/presentation/cubit/doctor/doctor_cubit.dart';
-import 'package:hephzibah/features/baby_care/presentation/pages/ui/admin_screens/doctor_profile.dart';
+import '../../../../../../common/commons.dart';
+import '../../../cubit/doctor/doctor_cubit.dart';
+import 'doctor_profile.dart';
 
 class DoctorsAdmin extends StatefulWidget {
   const DoctorsAdmin({Key? key}) : super(key: key);
