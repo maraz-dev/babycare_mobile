@@ -77,7 +77,7 @@ class FirebaseRemoteDatasourceImpl implements FirebaseRemoteDatasource {
       prefferedHospital: prefferedHospital,
       preferredDoctor: preferredDoctor,
     ).toDocument();
-    _babyCollection.doc(babyId).set(newBaby);
+    await _babyCollection.doc(babyId).set(newBaby);
   }
 
   @override
@@ -89,7 +89,7 @@ class FirebaseRemoteDatasourceImpl implements FirebaseRemoteDatasource {
       double yearsOfExperience,
       String ninNumber,
       String officialHospitalContact) async {
-    _doctorCollection.doc(_auth.currentUser!.uid).get().then((doctor) {
+    _doctorCollection.doc(_auth.currentUser!.uid).get().then((doctor) async {
       if (!doctor.exists) {
         _userCollection.doc(_auth.currentUser!.uid).set({
           'uid': _auth.currentUser!.uid,
@@ -105,7 +105,7 @@ class FirebaseRemoteDatasourceImpl implements FirebaseRemoteDatasource {
           ninNumber: ninNumber,
           officialHospitalContact: officialHospitalContact,
         ).toDocument();
-        _doctorCollection.doc(_auth.currentUser!.uid).set(newDoctor);
+        await _doctorCollection.doc(_auth.currentUser!.uid).set(newDoctor);
         return;
       }
     });
@@ -118,7 +118,7 @@ class FirebaseRemoteDatasourceImpl implements FirebaseRemoteDatasource {
     String phoneNumber,
     String babyId,
   ) async {
-    _motherCollection.doc(_auth.currentUser!.uid).get().then((mother) {
+    _motherCollection.doc(_auth.currentUser!.uid).get().then((mother) async {
       if (!mother.exists) {
         _userCollection.doc(_auth.currentUser!.uid).set({
           'uid': _auth.currentUser!.uid,
@@ -131,7 +131,7 @@ class FirebaseRemoteDatasourceImpl implements FirebaseRemoteDatasource {
           phoneNumber: phoneNumber,
           babyId: babyId,
         ).toDocument();
-        _motherCollection.doc(_auth.currentUser!.uid).set(newMother);
+        await _motherCollection.doc(_auth.currentUser!.uid).set(newMother);
         return;
       }
     });
