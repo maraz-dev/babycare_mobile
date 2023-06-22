@@ -1,20 +1,30 @@
-// ignore_for_file: use_build_context_synchronously
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hephzibah/common/commons.dart';
-import 'package:hephzibah/common/widgets/button.dart';
-import 'package:hephzibah/common/widgets/custom_text_input.dart';
-import 'package:hephzibah/features/baby_care/presentation/pages/ui/admin_screens/doctors_admin.dart';
-import 'package:hephzibah/features/baby_care/presentation/pages/ui/admin_screens/user_admin.dart';
-import 'package:hephzibah/features/baby_care/presentation/pages/ui/home_screen/widgets/descriptionWidgets.dart';
-import 'package:hephzibah/features/baby_care/presentation/pages/ui/splash_screen/onBoardingOne.dart';
+import 'package:hephzibah/features/baby_care/presentation/cubit/doctor/doctor_cubit.dart';
+import 'package:hephzibah/features/baby_care/presentation/pages/ui/admin_screens/doctor_profile.dart';
 
+import '../../../../../../common/commons.dart';
+import '../../../../../../common/widgets/button.dart';
+import '../../../../../../common/widgets/custom_text_input.dart';
 import '../../../cubit/signin/signin_cubit.dart';
+import '../home_screen/widgets/descriptionWidgets.dart';
+import '../splash_screen/onBoardingOne.dart';
 
-class AdminDashboard extends StatelessWidget {
-  const AdminDashboard({Key? key}) : super(key: key);
+class DoctorHome extends StatefulWidget {
+  const DoctorHome({super.key});
+
+  @override
+  State<DoctorHome> createState() => _DoctorHomeState();
+}
+
+class _DoctorHomeState extends State<DoctorHome> {
+  @override
+  void initState() {
+    BlocProvider.of<DoctorCubit>(context).getDoctors();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,18 +42,13 @@ class AdminDashboard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Admin Dashboard',
+                    'Dashboard',
                     style:
                         headerText.copyWith(color: Colors.white, fontSize: 26),
                   ),
                   InkWell(
                     child: SvgPicture.asset('assets/svg/settings.svg'),
-                    onTap: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //       builder: (context) => const AdminDashboard()));
-                    },
+                    onTap: () {},
                   ),
                 ],
               ),
@@ -59,50 +64,57 @@ class AdminDashboard extends StatelessWidget {
           ),
         ),
       ),
-      body: Container(
-        padding: const EdgeInsets.all(10),
-        child: ListView(
-          children: [
-            DescriptionWidget(
-              icons: const [
-                'assets/svg/person_group.svg',
-                'assets/svg/person.svg',
-              ],
-              titles: const [
-                "Users",
-                "Doctors",
-              ],
-              descriptions: const [
-                "Manage Registered Users",
-                "Manage Registered Doctors",
-              ],
-              onTapNav: [
-                () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const UserAdmin()));
-                },
-                () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const DoctorsAdmin()));
-                },
-              ],
-            ),
-
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 5.0),
-              child: ButtonWidget(
-                text: 'Log Out',
-                press: () => _showLogoutModalDialog(context),
-                BackgroundColor: primaryColor,
-                radius: 4,
+      body: BlocBuilder<DoctorCubit, DoctorState>(
+        builder: (context, state) {
+          if (state is DoctorLoaded) {
+            final currentDoctor = state.doctors.firstWhere((doctor) =>
+                doctor.doctorId == FirebaseAuth.instance.currentUser!.uid);
+            return Container(
+              padding: const EdgeInsets.all(10),
+              child: ListView(
+                children: [
+                  DescriptionWidget(
+                    icons: const [
+                      'assets/svg/calendar.svg',
+                      'assets/svg/person.svg',
+                    ],
+                    titles: const [
+                      "Appointments",
+                      "Edit Profile",
+                    ],
+                    descriptions: const [
+                      "Manage Appointments",
+                      "Make Profile Changes",
+                    ],
+                    onTapNav: [
+                      () {},
+                      () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DoctorsProfile(
+                                      currentDoctor: currentDoctor,
+                                    )));
+                      },
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 5.0),
+                    child: ButtonWidget(
+                      text: 'Log Out',
+                      press: () => _showLogoutModalDialog(context),
+                      BackgroundColor: primaryColor,
+                      radius: 4,
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
+            );
+          }
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        },
       ),
     );
   }

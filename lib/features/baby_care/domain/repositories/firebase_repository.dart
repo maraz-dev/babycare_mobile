@@ -37,4 +37,11 @@ abstract class FirebaseRepository {
   Stream<List<DoctorEntity>> getDoctors();
   Stream<List<MotherEntity>> getMothers();
   Stream<List<BabyEntity>> getBabies();
+  Future<void> bookAppointment(
+    Timestamp appointmentDateandTime,
+    String doctorId,
+    String motherId,
+    String location,
+    String hospital,
+  );
 }

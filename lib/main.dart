@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hephzibah/features/baby_care/presentation/cubit/appointment/appointment_cubit.dart';
 import 'package:hephzibah/features/baby_care/presentation/cubit/baby/baby_cubit.dart';
 import 'package:hephzibah/features/baby_care/presentation/cubit/doctor/doctor_cubit.dart';
 import 'package:hephzibah/features/baby_care/presentation/cubit/mother/mother_cubit.dart';
@@ -44,6 +45,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<BabyCubit>(
           create: (_) => di.sl<BabyCubit>(),
+        ),
+        BlocProvider<AppointmentCubit>(
+          create: (_) => di.sl<AppointmentCubit>(),
         ),
       ],
       child: MaterialApp(

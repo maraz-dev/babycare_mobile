@@ -3,11 +3,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hephzibah/features/baby_care/data/models/baby_model.dart';
 import 'package:hephzibah/features/baby_care/data/models/doctor_model.dart';
 import 'package:hephzibah/features/baby_care/data/models/mother_model.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../domain/entities/baby_entity.dart';
 import '../../domain/entities/doctor_entity.dart';
 import '../../domain/entities/mother_entity.dart';
 import '../../domain/entities/user_entity.dart';
+import '../models/appointment_model.dart';
 import '../models/user_model.dart';
 
 abstract class FirebaseRemoteDatasource {
@@ -42,6 +44,13 @@ abstract class FirebaseRemoteDatasource {
   Stream<List<DoctorEntity>> getDoctors();
   Stream<List<MotherEntity>> getMothers();
   Stream<List<BabyEntity>> getBabies();
+  Future<void> bookAppointment(
+    Timestamp appointmentDateandTime,
+    String doctorId,
+    String motherId,
+    String location,
+    String hospital,
+  );
 }
 
 class FirebaseRemoteDatasourceImpl implements FirebaseRemoteDatasource {
@@ -50,6 +59,8 @@ class FirebaseRemoteDatasourceImpl implements FirebaseRemoteDatasource {
   final _motherCollection = FirebaseFirestore.instance.collection('mothers');
   final _babyCollection = FirebaseFirestore.instance.collection('babies');
   final _userCollection = FirebaseFirestore.instance.collection('users');
+  final _appointmentCollection =
+      FirebaseFirestore.instance.collection('appointments');
   @override
   Future<void> createBaby(
       String babyId,
@@ -180,5 +191,26 @@ class FirebaseRemoteDatasourceImpl implements FirebaseRemoteDatasource {
     return _userCollection.snapshots().map((querySnapshot) => querySnapshot.docs
         .map((docSnapshot) => UserModel.fromSnapshot(docSnapshot))
         .toList());
+  }
+
+  @override
+  Future<void> bookAppointment(
+    Timestamp appointmentDateandTime,
+    String doctorId,
+    String motherId,
+    String location,
+    String hospital,
+  ) async {
+    final uid = const Uuid().v4();
+    final String appointmentId = uid;
+    final newAppointment = AppointmentModel(
+      appointmentId: appointmentId,
+      appointmentDateandTime: appointmentDateandTime,
+      doctorId: doctorId,
+      motherId: motherId,
+      location: location,
+      hospital: hospital,
+    ).toDocument();
+    _appointmentCollection.doc(appointmentId).set(newAppointment);
   }
 }

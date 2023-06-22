@@ -104,4 +104,21 @@ class FirebaseRepositoryImpl implements FirebaseRepository {
   Stream<List<UserEntity>> getUsers() {
     return firebaseRemoteDatasource.getUsers();
   }
+
+  @override
+  Future<void> bookAppointment(
+    Timestamp appointmentDateandTime,
+    String doctorId,
+    String motherId,
+    String location,
+    String hospital,
+  ) async {
+    return await firebaseRemoteDatasource.bookAppointment(
+      appointmentDateandTime,
+      doctorId,
+      motherId,
+      location,
+      hospital,
+    );
+  }
 }

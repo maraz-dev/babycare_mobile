@@ -1,5 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hephzibah/features/baby_care/domain/entities/doctor_entity.dart';
+import 'package:hephzibah/features/baby_care/presentation/cubit/appointment/appointment_cubit.dart';
+import 'package:hephzibah/features/baby_care/presentation/pages/ui/home_screen/home_page.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import 'package:hephzibah/common/commons.dart';
@@ -7,7 +11,6 @@ import 'package:hephzibah/common/widgets/button.dart';
 import 'package:hephzibah/features/baby_care/domain/entities/mother_entity.dart';
 
 import '../../../../../../common/utils.dart';
-import 'knowledge_center.dart';
 
 class ViewDoctor extends StatefulWidget {
   const ViewDoctor({
@@ -111,213 +114,242 @@ class _ViewDoctorState extends State<ViewDoctor> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                const Divider(
-                  thickness: 1,
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Image.asset('assets/Avatar.png'),
-                SizedBox(
-                  height: 15,
-                ),
-                Text(
-                  widget.selectedDoctor.name,
-                  style: headerText.copyWith(fontSize: 22, color: Colors.black),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  widget.selectedDoctor.phoneNumber,
-                  style: normalText.copyWith(fontSize: 16),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
+      body: BlocConsumer<AppointmentCubit, AppointmentState>(
+        listener: (context, state) {
+          if (state is AppointmentSuccess) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (_) => const HomePage()));
+          }
+        },
+        builder: (context, state) {
+          if (state is AppointmentLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return SingleChildScrollView(
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
                   children: [
-                    Icon(Icons.star),
+                    const Divider(
+                      thickness: 1,
+                    ),
                     SizedBox(
-                      width: 10,
+                      height: 15,
+                    ),
+                    Image.asset('assets/Avatar.png'),
+                    SizedBox(
+                      height: 15,
                     ),
                     Text(
-                      '4.7',
-                      style: headerText.copyWith(fontSize: 20),
+                      widget.selectedDoctor.name,
+                      style: headerText.copyWith(
+                          fontSize: 22, color: Colors.black),
                     ),
-                  ],
-                ),
-                Column(
-                  children: [
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      widget.selectedDoctor.phoneNumber,
+                      style: normalText.copyWith(fontSize: 16),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Container(
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Icon(Icons.location_on),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text(
-                                    widget.selectedLocation,
-                                    style: headerText.copyWith(
-                                        fontSize: 14, color: Colors.black),
-                                  )
-                                ],
-                              ),
-                              Text(
-                                'Location',
-                                style: normalText,
-                                textAlign: TextAlign.left,
-                              )
-                            ],
-                          ),
+                        Icon(Icons.star),
+                        SizedBox(
+                          width: 10,
                         ),
-                        Container(
-                          width: 2,
-                          height: 90,
-                          color: lightPrimaryColor.withOpacity(0.2),
-                        ),
-                        Container(
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Icon(Icons.light_mode),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text(
-                                    '${widget.selectedDoctor.yearsOfExperience} Years',
-                                    style: headerText.copyWith(
-                                        fontSize: 14, color: Colors.black),
-                                  )
-                                ],
-                              ),
-                              Text(
-                                'Experience',
-                                style: normalText,
-                                textAlign: TextAlign.left,
-                              )
-                            ],
-                          ),
+                        Text(
+                          '4.7',
+                          style: headerText.copyWith(fontSize: 20),
                         ),
                       ],
                     ),
-                    Divider(
-                      thickness: 1,
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                InkWell(
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => TableEventsExample())),
-                    child: Text(
-                      'Book Appointment Date',
-                      style: headerText.copyWith(
-                          color: Color(0xff222B45), fontSize: 15),
-                    )),
-                TableCalendar<Event>(
-                  firstDay: kFirstDay,
-                  lastDay: kLastDay,
-                  focusedDay: _focusedDay,
-                  selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
-                  rangeStartDay: _rangeStart,
-                  rangeEndDay: _rangeEnd,
-                  calendarFormat: _calendarFormat,
-                  rangeSelectionMode: _rangeSelectionMode,
-                  eventLoader: _getEventsForDay,
-                  startingDayOfWeek: StartingDayOfWeek.monday,
-                  calendarStyle: CalendarStyle(
-                    // Use `CalendarStyle` to customize the UI
-                    outsideDaysVisible: false,
-                  ),
-                  onDaySelected: _onDaySelected,
-                  onRangeSelected: _onRangeSelected,
-                  onFormatChanged: (format) {
-                    if (_calendarFormat != format) {
-                      setState(() {
-                        _calendarFormat = format;
-                      });
-                    }
-                  },
-                  onPageChanged: (focusedDay) {
-                    _focusedDay = focusedDay;
-                  },
-                ),
-                const SizedBox(height: 8.0),
-                ValueListenableBuilder<List<Event>>(
-                  valueListenable: _selectedEvents,
-                  builder: (context, value, _) {
-                    return GridView.builder(
-                      shrinkWrap: true,
-                      itemCount: value.length,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          margin: const EdgeInsets.symmetric(
-                            horizontal: 5.0,
-                            vertical: 4.0,
-                          ),
-                          decoration: BoxDecoration(
-                              border: Border.all(style: BorderStyle.none),
-                              borderRadius: BorderRadius.circular(2.0),
-                              shape: BoxShape.rectangle),
-                          child: InkWell(
-                            onTap: () => print('${value[index]}'),
-                            child: Container(
-                              color: primaryColor.withOpacity(0.08),
-                              height: 1,
-                              child: Center(
-                                  child: Text(
-                                '13:00 AM',
-                                style: headerText.copyWith(fontSize: 16),
-                              )),
+                    Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Container(
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Icon(Icons.location_on),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
+                                        widget.selectedLocation,
+                                        style: headerText.copyWith(
+                                            fontSize: 14, color: Colors.black),
+                                      )
+                                    ],
+                                  ),
+                                  Text(
+                                    'Location',
+                                    style: normalText,
+                                    textAlign: TextAlign.left,
+                                  )
+                                ],
+                              ),
                             ),
+                            Container(
+                              width: 2,
+                              height: 90,
+                              color: lightPrimaryColor.withOpacity(0.2),
+                            ),
+                            Container(
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Icon(Icons.light_mode),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
+                                        '${widget.selectedDoctor.yearsOfExperience} Years',
+                                        style: headerText.copyWith(
+                                            fontSize: 14, color: Colors.black),
+                                      )
+                                    ],
+                                  ),
+                                  Text(
+                                    'Experience',
+                                    style: normalText,
+                                    textAlign: TextAlign.left,
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        Divider(
+                          thickness: 1,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    InkWell(
+                        onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => TableEventsExample())),
+                        child: Text(
+                          'Book Appointment Date',
+                          style: headerText.copyWith(
+                              color: Color(0xff222B45), fontSize: 15),
+                        )),
+                    TableCalendar<Event>(
+                      firstDay: kFirstDay,
+                      lastDay: kLastDay,
+                      focusedDay: _focusedDay,
+                      selectedDayPredicate: (day) =>
+                          isSameDay(_selectedDay, day),
+                      rangeStartDay: _rangeStart,
+                      rangeEndDay: _rangeEnd,
+                      calendarFormat: _calendarFormat,
+                      rangeSelectionMode: _rangeSelectionMode,
+                      eventLoader: _getEventsForDay,
+                      startingDayOfWeek: StartingDayOfWeek.monday,
+                      calendarStyle: CalendarStyle(
+                        // Use `CalendarStyle` to customize the UI
+                        outsideDaysVisible: false,
+                      ),
+                      onDaySelected: _onDaySelected,
+                      onRangeSelected: _onRangeSelected,
+                      onFormatChanged: (format) {
+                        if (_calendarFormat != format) {
+                          setState(() {
+                            _calendarFormat = format;
+                          });
+                        }
+                      },
+                      onPageChanged: (focusedDay) {
+                        _focusedDay = focusedDay;
+                      },
+                    ),
+                    const SizedBox(height: 8.0),
+                    ValueListenableBuilder<List<Event>>(
+                      valueListenable: _selectedEvents,
+                      builder: (context, value, _) {
+                        return GridView.builder(
+                          shrinkWrap: true,
+                          itemCount: value.length,
+                          itemBuilder: (context, index) {
+                            return Container(
+                              margin: const EdgeInsets.symmetric(
+                                horizontal: 5.0,
+                                vertical: 4.0,
+                              ),
+                              decoration: BoxDecoration(
+                                  border: Border.all(style: BorderStyle.none),
+                                  borderRadius: BorderRadius.circular(2.0),
+                                  shape: BoxShape.rectangle),
+                              child: InkWell(
+                                onTap: () => print('${value[index]}'),
+                                child: Container(
+                                  color: primaryColor.withOpacity(0.08),
+                                  height: 1,
+                                  child: Center(
+                                      child: Text(
+                                    '13:00 AM',
+                                    style: headerText.copyWith(fontSize: 16),
+                                  )),
+                                ),
+                              ),
+                            );
+                          },
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 4,
+                            //crossAxisSpacing: 0.0,
+                            mainAxisSpacing: 5.0,
+                            //childAspectRatio: 1.0, // Adjust the aspect ratio as needed
                           ),
                         );
                       },
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 4,
-                        //crossAxisSpacing: 0.0,
-                        mainAxisSpacing: 5.0,
-                        //childAspectRatio: 1.0, // Adjust the aspect ratio as needed
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(18.0),
+                      child: ButtonWidget(
+                        text: 'Book Appointment ',
+                        press: () {
+                          // return Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) => const KnowledgeCenter()));
+                          BlocProvider.of<AppointmentCubit>(context)
+                              .bookAppointment(
+                            // Line below is where to send Timestamp to firestore
+                            appointmentDateandTime:
+                                Timestamp.fromDate(_selectedDay!),
+                            doctorId: widget.selectedDoctor.doctorId,
+                            motherId: widget.currentMother.motherId,
+                            location: widget.selectedLocation,
+                            hospital: widget.selectedHospital,
+                          );
+                        },
+                        BackgroundColor: primaryColor,
+                        radius: 4,
                       ),
-                    );
-                  },
+                    ),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(18.0),
-                  child: ButtonWidget(
-                    text: 'Book Appointment ',
-                    press: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const KnowledgeCenter())),
-                    BackgroundColor: primaryColor,
-                    radius: 4,
-                  ),
-                ),
-              ],
+              ),
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }

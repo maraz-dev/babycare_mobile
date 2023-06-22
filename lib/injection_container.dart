@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:hephzibah/features/baby_care/domain/usecases/book_appointment_usecase.dart';
 import 'package:hephzibah/features/baby_care/domain/usecases/create_baby_usecase.dart';
 import 'package:hephzibah/features/baby_care/domain/usecases/create_doctor_usecase.dart';
 import 'package:hephzibah/features/baby_care/domain/usecases/create_mother_usecase.dart';
@@ -7,6 +8,7 @@ import 'package:hephzibah/features/baby_care/domain/usecases/get_doctors_usecase
 import 'package:hephzibah/features/baby_care/domain/usecases/get_mothers_usecase.dart';
 import 'package:hephzibah/features/baby_care/domain/usecases/get_users_usecase.dart';
 import 'package:hephzibah/features/baby_care/domain/usecases/sign_out_usecase.dart';
+import 'package:hephzibah/features/baby_care/presentation/cubit/appointment/appointment_cubit.dart';
 import 'package:hephzibah/features/baby_care/presentation/cubit/auth/auth_cubit.dart';
 import 'package:hephzibah/features/baby_care/presentation/cubit/baby/baby_cubit.dart';
 import 'package:hephzibah/features/baby_care/presentation/cubit/doctor/doctor_cubit.dart';
@@ -50,6 +52,9 @@ Future<void> init() async {
   sl.registerFactory<BabyCubit>(() => BabyCubit(
         getBabiesUsecase: sl.call(),
       ));
+  sl.registerFactory<AppointmentCubit>(() => AppointmentCubit(
+        bookAppointmentUsecase: sl.call(),
+      ));
 
   //!useCae
   sl.registerLazySingleton<IsSigninUsecase>(
@@ -76,6 +81,8 @@ Future<void> init() async {
       () => GetMothersUsecase(repository: sl.call()));
   sl.registerLazySingleton<GetBabiesUsecase>(
       () => GetBabiesUsecase(repository: sl.call()));
+  sl.registerLazySingleton<BookAppointmentUsecase>(
+      () => BookAppointmentUsecase(repository: sl.call()));
 
   //repository
   sl.registerLazySingleton<FirebaseRepository>(
