@@ -29,18 +29,7 @@ class _MotherSignUpState extends State<MotherSignUp> {
       appBar: authAppBar(
           context, 'Sign Up', 'Please enter your credentials to proceed', true,
           mother: true),
-      body: BlocConsumer<SigninCubit, SigninState>(
-        listener: (context, state) {
-          if (state is SigninSuccess) {
-            // print("BABY ID IS: $babyId");
-            // Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //         builder: (context) => BabyRegistration(
-            //               babyId: babyId,
-            //             )));
-          }
-        },
+      body: BlocBuilder<SigninCubit, SigninState>(
         builder: (context, state) {
           if (state is SigninLoading) {
             return const Center(
@@ -49,13 +38,13 @@ class _MotherSignUpState extends State<MotherSignUp> {
           }
           return SingleChildScrollView(
             child: Container(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: 5),
+                    padding: const EdgeInsets.symmetric(vertical: 5),
                     child: Text(
                       'Name',
                       style: normalText.copyWith(fontSize: 15),
@@ -69,7 +58,7 @@ class _MotherSignUpState extends State<MotherSignUp> {
                     themeColor: lightPrimaryColor,
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: 5),
+                    padding: const EdgeInsets.symmetric(vertical: 5),
                     child: Text(
                       'Email',
                       style: normalText.copyWith(fontSize: 15),
@@ -83,7 +72,7 @@ class _MotherSignUpState extends State<MotherSignUp> {
                     themeColor: lightPrimaryColor,
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: 5),
+                    padding: const EdgeInsets.symmetric(vertical: 5),
                     child: Text(
                       'Mobile Phone',
                       style: normalText.copyWith(fontSize: 15),
@@ -97,7 +86,7 @@ class _MotherSignUpState extends State<MotherSignUp> {
                     themeColor: lightPrimaryColor,
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: 5),
+                    padding: const EdgeInsets.symmetric(vertical: 5),
                     child: Text(
                       'Password',
                       style: normalText.copyWith(fontSize: 15),

@@ -42,7 +42,7 @@ class _OnBoardingOneState extends State<OnBoardingOne> {
               style: headerText,
             ),
             Text(
-              'to Digital Clinic',
+              'to PregnancyPal',
               style: headerText.copyWith(color: darkColor),
             ),
             SizedBox(

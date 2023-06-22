@@ -30,7 +30,7 @@ class StepTwo extends StatelessWidget {
             ElevatedButton(
               style: style,
               onPressed: () => Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => SignIn())),
+                  context, MaterialPageRoute(builder: (context) => const SignIn())),
               child: const Text('DOCTOR SIGN IN'),
             ),
             const SizedBox(
@@ -39,7 +39,7 @@ class StepTwo extends StatelessWidget {
             ElevatedButton(
               style: style,
               onPressed: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => MotherSignIn())),
+                  MaterialPageRoute(builder: (context) => const MotherSignIn())),
               child: const Text('MOTHER SIGN IN'),
             ),
           ],
@@ -74,7 +74,7 @@ class StepThree extends StatelessWidget {
             ElevatedButton(
               style: style,
               onPressed: () => Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => SignUp())),
+                  context, MaterialPageRoute(builder: (context) => const SignUp())),
               child: const Text('DOCTOR SIGN UP'),
             ),
             const SizedBox(
@@ -83,7 +83,7 @@ class StepThree extends StatelessWidget {
             ElevatedButton(
               style: style,
               onPressed: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => MotherSignUp())),
+                  MaterialPageRoute(builder: (context) => const MotherSignUp())),
               child: const Text('MOTHER SIGN UP'),
             ),
           ],

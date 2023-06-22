@@ -4,11 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../domain/entities/user_entity.dart';
 import '../../cubit/user/user_cubit.dart';
 import 'admin_screens/admin_dash.dart';
-import 'admin_screens/doctors_admin.dart';
 import 'doctor_screens/doctor_home_screen.dart';
 import 'home_screen/home_page.dart';
-
-import '../../cubit/signin/signin_cubit.dart';
 
 class DefaultHome extends StatefulWidget {
   const DefaultHome({super.key});
