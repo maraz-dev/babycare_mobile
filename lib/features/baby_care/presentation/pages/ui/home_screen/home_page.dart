@@ -80,11 +80,11 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
               child: ListView(
                 children: [
-                  DeliveryCountDownWidget(
+                  NextAppointmentCountdownWidget(
                     label: 'Countdown to Next Appointment',
                     currentMother: currentMother,
                   ),
-                  NextAppointmentCountdownWidget(
+                  DeliveryCountDownWidget(
                     label: 'Countdown to Delivery Date',
                     currentMother: currentMother,
                   ),
