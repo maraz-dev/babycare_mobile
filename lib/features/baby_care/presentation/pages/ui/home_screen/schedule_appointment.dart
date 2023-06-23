@@ -30,6 +30,7 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
   String? selectedLocation;
   String? selectedHospital;
   DoctorEntity? selectedDoctor;
+  List<DoctorEntity> doctors = [];
   List states = [
     'Abia',
     'Adamawa',
@@ -69,87 +70,85 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
     'Zamfara',
   ];
 
-  List hospitals = [
-    'Hospital A',
-    'Hospital B',
-    'Hospital C',
-    'Hospital D',
-  ];
+  List<String> hospitals = [];
 
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      body: ListView(
-        shrinkWrap: true,
-        children: [
-          Container(
-            color: Colors.white,
-            padding: EdgeInsets.only(top: 60, left: 15, right: 15),
-            child: Column(
+      body: BlocBuilder<DoctorCubit, DoctorState>(
+        builder: (context, state) {
+          if (state is DoctorLoaded) {
+            doctors = state.doctors;
+            return ListView(
+              shrinkWrap: true,
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Schedule Appointment',
-                        style: headerText.copyWith(
-                            fontSize: 26, color: Colors.black),
-                      ),
-                      Row(children: [
-                        InkWell(
-                          onTap: null,
-                          child: SvgPicture.asset('assets/svg/calendar.svg'),
-                        ),
-                        SizedBox(
-                          width: 15,
-                        ),
-                        InkWell(
-                          onTap: null,
-                          child: SvgPicture.asset('assets/svg/bell.svg'),
-                        ),
-                      ])
-                    ],
-                  ),
-                ),
                 Container(
-                  color: Color(0xffF7F9FC),
-                  height: height,
-                  margin: EdgeInsets.symmetric(horizontal: 10),
+                  color: Colors.white,
+                  padding: const EdgeInsets.only(top: 60, left: 15, right: 15),
                   child: Column(
                     children: [
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      DropdownButtonFormField<String>(
-                        value: selectedLocation,
-                        items: _buildStateDropdownItems(),
-                        onChanged: (value) {
-                          setState(() {
-                            selectedLocation = value;
-                          });
-                        },
-                        decoration: const InputDecoration(
-                          labelText: 'Preffered Location',
-                          fillColor: Colors.white,
-                          filled: true,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Schedule Appointment',
+                              style: headerText.copyWith(
+                                  fontSize: 26, color: Colors.black),
+                            ),
+                            Row(children: [
+                              InkWell(
+                                onTap: null,
+                                child:
+                                    SvgPicture.asset('assets/svg/calendar.svg'),
+                              ),
+                              const SizedBox(
+                                width: 15,
+                              ),
+                              InkWell(
+                                onTap: null,
+                                child: SvgPicture.asset('assets/svg/bell.svg'),
+                              ),
+                            ])
+                          ],
                         ),
                       ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      BlocBuilder<DoctorCubit, DoctorState>(
-                        builder: (context, state) {
-                          if (state is DoctorLoaded) {
-                            return DropdownButtonFormField<DoctorEntity>(
+                      Container(
+                        color: const Color(0xffF7F9FC),
+                        height: height,
+                        margin: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Column(
+                          children: [
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            DropdownButtonFormField<String>(
+                              value: selectedLocation,
+                              items: _buildStateDropdownItems(),
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedLocation = value;
+                                });
+                              },
+                              decoration: const InputDecoration(
+                                labelText: 'Preffered Location',
+                                fillColor: Colors.white,
+                                filled: true,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            DropdownButtonFormField<DoctorEntity>(
                               value: selectedDoctor,
                               items: _buildDoctorDropdownItems(state.doctors),
                               onChanged: (value) {
                                 setState(() {
                                   selectedDoctor = value;
+                                  hospitals = [selectedDoctor!.currentHospital];
                                 });
                               },
                               decoration: const InputDecoration(
@@ -157,57 +156,58 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                                 fillColor: Colors.white,
                                 filled: true,
                               ),
-                            );
-                          }
-                          return Center(
-                            child: const CircularProgressIndicator(),
-                          );
-                        },
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      DropdownButtonFormField<String>(
-                        value: selectedHospital,
-                        items: _buildHospitalDropdownItems(),
-                        onChanged: (value) {
-                          setState(() {
-                            selectedHospital = value;
-                          });
-                        },
-                        decoration: const InputDecoration(
-                          labelText: 'Preferred Hospital',
-                          fillColor: Colors.white,
-                          filled: true,
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            DropdownButtonFormField<String>(
+                              value: selectedHospital,
+                              items: _buildHospitalDropdownItems(hospitals),
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedHospital = value;
+                                });
+                              },
+                              decoration: const InputDecoration(
+                                labelText: 'Preferred Hospital',
+                                fillColor: Colors.white,
+                                filled: true,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(18.0),
+                              child: ButtonWidget(
+                                text: 'VIEW DOCTOR',
+                                press: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ViewDoctor(
+                                              currentMother:
+                                                  widget.currentMother,
+                                              selectedDoctor: selectedDoctor!,
+                                              selectedHospital:
+                                                  selectedHospital!,
+                                              selectedLocation:
+                                                  selectedLocation!,
+                                            ))),
+                                BackgroundColor: primaryColor,
+                                radius: 4,
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(18.0),
-                        child: ButtonWidget(
-                          text: 'VIEW DOCTOR',
-                          press: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ViewDoctor(
-                                        currentMother: widget.currentMother,
-                                        selectedDoctor: selectedDoctor!,
-                                        selectedHospital: selectedHospital!,
-                                        selectedLocation: selectedLocation!,
-                                      ))),
-                          BackgroundColor: primaryColor,
-                          radius: 4,
-                        ),
-                      ),
+                      )
                     ],
                   ),
-                )
+                ),
               ],
-            ),
-          ),
-        ],
+            );
+          }
+          return const CircularProgressIndicator();
+        },
       ),
     );
   }
@@ -229,23 +229,26 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
       List<DoctorEntity> doctors) {
     List<DropdownMenuItem<DoctorEntity>> items = [];
     for (var doctor in doctors) {
-      items.add(
-        DropdownMenuItem(
-          value: doctor,
-          child: Text(doctor.name),
-        ),
-      );
+      if (doctor.location == selectedLocation) {
+        items.add(
+          DropdownMenuItem(
+            value: doctor,
+            child: Text(doctor.name),
+          ),
+        );
+      }
     }
     return items;
   }
 
-  List<DropdownMenuItem<String>> _buildHospitalDropdownItems() {
+  List<DropdownMenuItem<String>> _buildHospitalDropdownItems(
+      List<String> hospis) {
     List<DropdownMenuItem<String>> items = [];
-    for (var hospital in hospitals) {
+    for (var hospi in hospis) {
       items.add(
         DropdownMenuItem(
-          value: hospital,
-          child: Text(hospital),
+          value: hospi,
+          child: Text(hospi),
         ),
       );
     }
