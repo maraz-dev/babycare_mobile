@@ -118,7 +118,7 @@ class _MotherSignUpState extends State<MotherSignUp> {
                       );
 
               showLoadingIndicator();
-                      Future.delayed(Duration(seconds: 3), () {
+                      Future.delayed(Duration(seconds: 5), () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(

@@ -1,15 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hephzibah/features/baby_care/domain/entities/doctor_entity.dart';
 
 import '../../../../../../../common/commons.dart';
 import '../../../../../../../common/widgets/button.dart';
+import '../../../../cubit/doctor/doctor_cubit.dart';
 import '../../../../cubit/signin/signin_cubit.dart';
 import '../../home_screen/home_page.dart';
-
-import '../../default_home.dart';
 
 class BabyRegistration extends StatefulWidget {
   const BabyRegistration({
@@ -23,22 +22,18 @@ class BabyRegistration extends StatefulWidget {
 }
 
 class _BabyRegistrationState extends State<BabyRegistration> {
+  @override
+  void initState() {
+    BlocProvider.of<DoctorCubit>(context).getDoctors();
+    super.initState();
+  }
+
   DateTime conceptionDate = DateTime.now();
   String? selectedLocation;
   String? selectedHospital;
-  String? selectedDoctor;
-  List hospitals = [
-    'Hospital A',
-    'Hospital B',
-    'Hospital C',
-    'Hospital D',
-  ];
-  List doctors = [
-    'Doctor A',
-    'Doctor B',
-    'Doctor C',
-    'Doctor D',
-  ];
+  DoctorEntity? selectedDoctor;
+  List<String> hospitals = [];
+  List<DoctorEntity> doctors = [];
   List states = [
     'Abia',
     'Adamawa',
@@ -91,8 +86,12 @@ class _BabyRegistrationState extends State<BabyRegistration> {
       body: BlocConsumer<SigninCubit, SigninState>(
         listener: (context, state) {
           if (state is SigninSuccess) {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) =>  HomePage(uid: FirebaseAuth.instance.currentUser!.uid,)));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => HomePage(
+                          uid: FirebaseAuth.instance.currentUser!.uid,
+                        )));
           }
         },
         builder: (context, state) {
@@ -102,141 +101,153 @@ class _BabyRegistrationState extends State<BabyRegistration> {
             );
           }
           return Padding(
-            padding: EdgeInsets.all(20),
-            child: ListView(
-              children: [
-                SizedBox(
-                  height: 10,
-                ),
-                Divider(
-                  color: lightPrimaryColor,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Text(
-                    'Date of Conception',
-                    style: normalText.copyWith(fontSize: 15),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () async {
-                    final date = await _pickDate();
-                    if (date == null) return; // pressed cancel
-                    setState(() {
-                      conceptionDate = date;
-                    });
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 234, 234, 236),
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "${conceptionDate.day}/${conceptionDate.month}/${conceptionDate.year}",
+            padding: const EdgeInsets.all(20),
+            child: BlocBuilder<DoctorCubit, DoctorState>(
+              builder: (context, state) {
+                if (state is DoctorLoaded) {
+                  doctors = state.doctors;
+                  return ListView(
+                    children: [
+                      const SizedBox(
+                        height: 10,
                       ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Divider(
-                  color: lightPrimaryColor,
-                ),
-                // Padding(
-                //   padding: const EdgeInsets.symmetric(vertical: 10),
-                //   child: Text(
-                //     'Current Location',
-                //     style: normalText.copyWith(fontSize: 15),
-                //   ),
-                // ),
-                DropdownButtonFormField<String>(
-                  value: selectedLocation,
-                  items: _buildStateDropdownItems(),
-                  onChanged: (value) {
-                    setState(() {
-                      selectedLocation = value;
-                    });
-                  },
-                  decoration: const InputDecoration(
-                    labelText: 'State',
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Divider(
-                  color: lightPrimaryColor,
-                ),
-                // Padding(
-                //   padding: const EdgeInsets.symmetric(vertical: 10),
-                //   child: Text(
-                //     'Preferred Hospital',
-                //     style: normalText.copyWith(fontSize: 15),
-                //   ),
-                // ),
-                DropdownButtonFormField<String>(
-                  value: selectedHospital,
-                  items: _buildHospitalDropdownItems(),
-                  onChanged: (value) {
-                    setState(() {
-                      selectedHospital = value;
-                    });
-                  },
-                  decoration: const InputDecoration(
-                    labelText: 'Preferred Hospital',
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Divider(
-                  color: lightPrimaryColor,
-                ),
-                DropdownButtonFormField<String>(
-                  value: selectedDoctor,
-                  items: _buildDoctorDropdownItems(),
-                  onChanged: (value) {
-                    setState(() {
-                      selectedDoctor = value;
-                    });
-                  },
-                  decoration: const InputDecoration(
-                    labelText: 'Prefered Doctor',
-                  ),
-                ),
-                // Padding(
-                //   padding: const EdgeInsets.symmetric(vertical: 10),
-                //   child: Text(
-                //     'Preferred Doctor',
-                //     style: normalText.copyWith(fontSize: 15),
-                //   ),
-                // ),
-                const SizedBox(
-                  height: 20,
-                ),
-                ButtonWidget(
-                  text: 'PROCEED TO DASHBOARD',
-                  press: () async {
-                    await BlocProvider.of<SigninCubit>(context).registerBaby(
-                      babyId: widget.babyId,
-                      dateOfConception: Timestamp.fromDate(conceptionDate),
-                      currentLocation: selectedLocation!,
-                      prefferedHospital: selectedHospital!,
-                      preferredDoctor: selectedDoctor!,
-                    );
-                  },
-                  BackgroundColor: primaryColor,
-                  radius: 4,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-              ],
+                      Divider(
+                        color: lightPrimaryColor,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Text(
+                          'Date of Conception',
+                          style: normalText.copyWith(fontSize: 15),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () async {
+                          final date = await _pickDate();
+                          if (date == null) return; // pressed cancel
+                          setState(() {
+                            conceptionDate = date;
+                          });
+                        },
+                        child: Container(
+                          width: double.infinity,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 234, 234, 236),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "${conceptionDate.day}/${conceptionDate.month}/${conceptionDate.year}",
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Divider(
+                        color: lightPrimaryColor,
+                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(vertical: 10),
+                      //   child: Text(
+                      //     'Current Location',
+                      //     style: normalText.copyWith(fontSize: 15),
+                      //   ),
+                      // ),
+                      DropdownButtonFormField<String>(
+                        value: selectedLocation,
+                        items: _buildStateDropdownItems(),
+                        onChanged: (value) {
+                          setState(() {
+                            selectedLocation = value;
+                          });
+                        },
+                        decoration: const InputDecoration(
+                          labelText: 'State',
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Divider(
+                        color: lightPrimaryColor,
+                      ),
+                      DropdownButtonFormField<DoctorEntity>(
+                        value: selectedDoctor,
+                        items: _buildDoctorDropdownItems(doctors),
+                        onChanged: (value) {
+                          setState(() {
+                            selectedDoctor = value;
+                            hospitals = [selectedDoctor!.currentHospital];
+                          });
+                        },
+                        decoration: const InputDecoration(
+                          labelText: 'Prefered Doctor',
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Divider(
+                        color: lightPrimaryColor,
+                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(vertical: 10),
+                      //   child: Text(
+                      //     'Preferred Hospital',
+                      //     style: normalText.copyWith(fontSize: 15),
+                      //   ),
+                      // ),
+                      DropdownButtonFormField<String>(
+                        value: selectedHospital,
+                        items: _buildHospitalDropdownItems(hospitals),
+                        onChanged: (value) {
+                          setState(() {
+                            selectedHospital = value;
+                          });
+                        },
+                        decoration: const InputDecoration(
+                          labelText: 'Preferred Hospital',
+                        ),
+                      ),
+
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(vertical: 10),
+                      //   child: Text(
+                      //     'Preferred Doctor',
+                      //     style: normalText.copyWith(fontSize: 15),
+                      //   ),
+                      // ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      ButtonWidget(
+                        text: 'PROCEED TO DASHBOARD',
+                        press: () async {
+                          await BlocProvider.of<SigninCubit>(context)
+                              .registerBaby(
+                            babyId: widget.babyId,
+                            dateOfConception:
+                                Timestamp.fromDate(conceptionDate),
+                            currentLocation: selectedLocation!,
+                            prefferedHospital: selectedHospital!,
+                            preferredDoctor: selectedDoctor!.name,
+                          );
+                        },
+                        BackgroundColor: primaryColor,
+                        radius: 4,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                    ],
+                  );
+                }
+                return const CircularProgressIndicator();
+              },
             ),
           );
         },
@@ -257,28 +268,32 @@ class _BabyRegistrationState extends State<BabyRegistration> {
     return items;
   }
 
-  List<DropdownMenuItem<String>> _buildHospitalDropdownItems() {
+  List<DropdownMenuItem<String>> _buildHospitalDropdownItems(
+      List<String> hospis) {
     List<DropdownMenuItem<String>> items = [];
-    for (var hospital in hospitals) {
+    for (var hospi in hospis) {
       items.add(
         DropdownMenuItem(
-          value: hospital,
-          child: Text(hospital),
+          value: hospi,
+          child: Text(hospi),
         ),
       );
     }
     return items;
   }
 
-  List<DropdownMenuItem<String>> _buildDoctorDropdownItems() {
-    List<DropdownMenuItem<String>> items = [];
-    for (var doctor in doctors) {
-      items.add(
-        DropdownMenuItem(
-          value: doctor,
-          child: Text(doctor),
-        ),
-      );
+  List<DropdownMenuItem<DoctorEntity>> _buildDoctorDropdownItems(
+      List<DoctorEntity> mydocs) {
+    List<DropdownMenuItem<DoctorEntity>> items = [];
+    for (var doctor in mydocs) {
+      if (doctor.location == selectedLocation) {
+        items.add(
+          DropdownMenuItem(
+            value: doctor,
+            child: Text(doctor.name),
+          ),
+        );
+      }
     }
     return items;
   }

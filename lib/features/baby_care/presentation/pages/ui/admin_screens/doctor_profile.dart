@@ -116,7 +116,7 @@ class DoctorsProfile extends StatelessWidget {
                                       Column(
                                         children: [
                                           Text(
-                                            'Ogun',
+                                            currentDoctor.location,
                                             style: headerText.copyWith(
                                                 fontSize: 14,
                                                 color: Colors.black),

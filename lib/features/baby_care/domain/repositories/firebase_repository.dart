@@ -19,6 +19,7 @@ abstract class FirebaseRepository {
     double yearsOfExperience,
     String ninNumber,
     String officialHospitalContact,
+    String location,
   );
   Future<void> createMother(
     String name,

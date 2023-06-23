@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_native_splash/cli_commands.dart';
 import 'package:hephzibah/common/commons.dart';
 import 'package:hephzibah/common/widgets/authHeaderWidget.dart';
 import 'package:hephzibah/common/widgets/button.dart';
@@ -170,6 +171,9 @@ class _SignUpState extends State<SignUp> {
                   ButtonWidget(
                     text: 'SIGN UP',
                     press: () async {
+                      final List<String> hospiNameList =
+                          _hospitalController.text.trim().split(" ");
+                      final String state = hospiNameList.last;
                       await BlocProvider.of<SigninCubit>(context)
                           .registerDoctor(
                         email: _emailController.text.trim(),
@@ -181,9 +185,10 @@ class _SignUpState extends State<SignUp> {
                             double.parse(_experienceController.text.trim()),
                         ninNumber: _ninController.text.trim(),
                         officialHospitalContact: _contactController.text.trim(),
+                        location: state.capitalize(),
                       );
 
-              showLoadingIndicator();
+                      showLoadingIndicator();
 
                       Future.delayed(Duration(seconds: 3), () {
                         Navigator.push(
@@ -228,18 +233,18 @@ class _SignUpState extends State<SignUp> {
       ),
     );
   }
-  void showLoadingIndicator() {
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Row(
-        children: [
-          CircularProgressIndicator(),
-          SizedBox(width: 10),
-          Text('Loading...'),
-        ],
-      ),
-    ),
-  );
-}
-}
 
+  void showLoadingIndicator() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            CircularProgressIndicator(),
+            SizedBox(width: 10),
+            Text('Loading...'),
+          ],
+        ),
+      ),
+    );
+  }
+}

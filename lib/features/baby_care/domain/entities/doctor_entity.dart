@@ -9,6 +9,7 @@ class DoctorEntity extends Equatable {
   final double yearsOfExperience;
   final String ninNumber;
   final String officialHospitalContact;
+  final String location;
 
   const DoctorEntity(
     this.doctorId,
@@ -19,6 +20,7 @@ class DoctorEntity extends Equatable {
     this.yearsOfExperience,
     this.ninNumber,
     this.officialHospitalContact,
+    this.location,
   );
   @override
   List<Object?> get props => [
@@ -30,5 +32,6 @@ class DoctorEntity extends Equatable {
         yearsOfExperience,
         ninNumber,
         officialHospitalContact,
+        location,
       ];
 }

@@ -30,13 +30,15 @@ class FirebaseRepositoryImpl implements FirebaseRepository {
 
   @override
   Future<void> createDoctor(
-      String name,
-      String email,
-      String phoneNumber,
-      String currentHospital,
-      double yearsOfExperience,
-      String ninNumber,
-      String officialHospitalContact) async {
+    String name,
+    String email,
+    String phoneNumber,
+    String currentHospital,
+    double yearsOfExperience,
+    String ninNumber,
+    String officialHospitalContact,
+    String location,
+  ) async {
     return await firebaseRemoteDatasource.createDoctor(
       name,
       email,
@@ -45,6 +47,7 @@ class FirebaseRepositoryImpl implements FirebaseRepository {
       yearsOfExperience,
       ninNumber,
       officialHospitalContact,
+      location,
     );
   }
 

@@ -11,6 +11,7 @@ class CreateDoctorUsecase {
     double yearsOfExperience,
     String ninNumber,
     String officialHospitalContact,
+    String location,
   ) async {
     repository.createDoctor(
       name,
@@ -20,6 +21,7 @@ class CreateDoctorUsecase {
       yearsOfExperience,
       ninNumber,
       officialHospitalContact,
+      location,
     );
   }
 }
