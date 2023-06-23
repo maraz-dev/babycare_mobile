@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -91,7 +92,7 @@ class _BabyRegistrationState extends State<BabyRegistration> {
         listener: (context, state) {
           if (state is SigninSuccess) {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const DefaultHome()));
+                MaterialPageRoute(builder: (context) =>  HomePage(uid: FirebaseAuth.instance.currentUser!.uid,)));
           }
         },
         builder: (context, state) {

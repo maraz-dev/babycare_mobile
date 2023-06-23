@@ -118,7 +118,7 @@ class _ViewDoctorState extends State<ViewDoctor> {
         listener: (context, state) {
           if (state is AppointmentSuccess) {
             Navigator.push(
-                context, MaterialPageRoute(builder: (_) => const HomePage()));
+                context, MaterialPageRoute(builder: (_) =>  HomePage(uid: widget.currentMother.motherId,)));
           }
         },
         builder: (context, state) {

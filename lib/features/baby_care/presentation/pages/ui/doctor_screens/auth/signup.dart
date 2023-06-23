@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hephzibah/common/commons.dart';
@@ -8,8 +9,7 @@ import 'package:hephzibah/common/widgets/button.dart';
 import 'package:hephzibah/common/widgets/custom_text_input.dart';
 import 'package:hephzibah/features/baby_care/presentation/cubit/signin/signin_cubit.dart';
 import 'package:hephzibah/features/baby_care/presentation/pages/ui/doctor_screens/auth/signin.dart';
-
-import '../../default_home.dart';
+import 'package:hephzibah/features/baby_care/presentation/pages/ui/doctor_screens/doctor_home_screen.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -32,13 +32,13 @@ class _SignUpState extends State<SignUp> {
     return Scaffold(
       appBar: authAppBar(
           context, 'Sign Up', 'Please enter your credentials to proceed', true),
-      body: BlocConsumer<SigninCubit, SigninState>(
-        listener: (context, state) {
-          if (state is SigninSuccess) {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const DefaultHome()));
-          }
-        },
+      body: BlocBuilder<SigninCubit, SigninState>(
+        // listener: (context, state) {
+        //   if (state is SigninSuccess) {
+        //     Navigator.push(context,
+        //         MaterialPageRoute(builder: (context) =>  DoctorHome(uid: FirebaseAuth.instance.currentUser!.uid,)));
+        //   }
+        // },
         builder: (context, state) {
           if (state is SigninLoading) {
             return const Center(
@@ -182,6 +182,18 @@ class _SignUpState extends State<SignUp> {
                         ninNumber: _ninController.text.trim(),
                         officialHospitalContact: _contactController.text.trim(),
                       );
+
+              showLoadingIndicator();
+
+                      Future.delayed(Duration(seconds: 3), () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DoctorHome(
+                                      uid: FirebaseAuth
+                                          .instance.currentUser!.uid,
+                                    )));
+                      });
                     },
                     BackgroundColor: primaryColor,
                     radius: 4,
@@ -216,4 +228,18 @@ class _SignUpState extends State<SignUp> {
       ),
     );
   }
+  void showLoadingIndicator() {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Row(
+        children: [
+          CircularProgressIndicator(),
+          SizedBox(width: 10),
+          Text('Loading...'),
+        ],
+      ),
+    ),
+  );
 }
+}
+

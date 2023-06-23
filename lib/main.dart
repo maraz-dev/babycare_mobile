@@ -69,7 +69,7 @@ class MyApp extends StatelessWidget {
         home: BlocBuilder<AuthCubit, AuthState>(
           builder: (context, authState) {
             if (authState is Authenticated) {
-              return const DefaultHome();
+              return DefaultHome(uid: authState.uid);
             } else {
               return const OnBoardingOne();
             }

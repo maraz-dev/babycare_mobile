@@ -2,8 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 import '../../../../../../common/commons.dart';
 import '../../../../../../common/widgets/custom_text_input.dart';
+import '../../../cubit/mother/mother_cubit.dart';
 import 'knowledge_center.dart';
 import 'profile.dart';
 import 'schedule_appointment.dart';
@@ -11,10 +13,12 @@ import 'settings.dart';
 import 'widgets/countdown.dart';
 import 'widgets/descriptionWidgets.dart';
 
-import '../../../cubit/mother/mother_cubit.dart';
-
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({
+    Key? key,
+    required this.uid,
+  }) : super(key: key);
+  final String uid;
 
   @override
   State<HomePage> createState() => _HomePageState();

@@ -1,13 +1,14 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hephzibah/common/commons.dart';
 import 'package:hephzibah/common/widgets/authHeaderWidget.dart';
 import 'package:hephzibah/common/widgets/button.dart';
 import 'package:hephzibah/common/widgets/custom_text_input.dart';
-import 'package:hephzibah/features/baby_care/presentation/pages/ui/default_home.dart';
 import 'package:hephzibah/features/baby_care/presentation/pages/ui/doctor_screens/auth/signup.dart';
+import 'package:hephzibah/features/baby_care/presentation/pages/ui/doctor_screens/doctor_home_screen.dart';
 
 import '../../../../cubit/signin/signin_cubit.dart';
 
@@ -30,7 +31,7 @@ class _SignInState extends State<SignIn> {
         listener: (context, state) {
           if (state is SigninSuccess) {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const DefaultHome()));
+                MaterialPageRoute(builder: (context) => DoctorHome(uid: FirebaseAuth.instance.currentUser!.uid,)));
           }
         },
         builder: (context, state) {

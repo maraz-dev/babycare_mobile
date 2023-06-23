@@ -1,19 +1,22 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../../cubit/doctor/doctor_cubit.dart';
-import '../admin_screens/doctor_profile.dart';
 
 import '../../../../../../common/commons.dart';
 import '../../../../../../common/widgets/button.dart';
 import '../../../../../../common/widgets/custom_text_input.dart';
+import '../../../cubit/doctor/doctor_cubit.dart';
 import '../../../cubit/signin/signin_cubit.dart';
+import '../admin_screens/doctor_profile.dart';
 import '../home_screen/widgets/descriptionWidgets.dart';
 import '../splash_screen/onBoardingOne.dart';
 
 class DoctorHome extends StatefulWidget {
-  const DoctorHome({super.key});
+  const DoctorHome({
+    Key? key,
+    required this.uid,
+  }) : super(key: key);
+  final String uid;
 
   @override
   State<DoctorHome> createState() => _DoctorHomeState();
@@ -65,10 +68,10 @@ class _DoctorHomeState extends State<DoctorHome> {
         ),
       ),
       body: BlocBuilder<DoctorCubit, DoctorState>(
-        builder: (context, state) {
+        builder: (_, state) {
           if (state is DoctorLoaded) {
             final currentDoctor = state.doctors.firstWhere((doctor) =>
-                doctor.doctorId == FirebaseAuth.instance.currentUser!.uid);
+                doctor.doctorId == widget.uid);
             return Container(
               padding: const EdgeInsets.all(10),
               child: ListView(

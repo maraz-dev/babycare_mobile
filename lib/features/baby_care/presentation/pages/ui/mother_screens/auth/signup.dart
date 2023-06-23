@@ -116,12 +116,16 @@ class _MotherSignUpState extends State<MotherSignUp> {
                         phoneNumber: _phoneController.text.trim(),
                         babyId: babyId,
                       );
-                      Navigator.push(
+
+              showLoadingIndicator();
+                      Future.delayed(Duration(seconds: 3), () {
+                        Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => BabyRegistration(
                                     babyId: babyId,
                                   )));
+                      });
                     },
                     BackgroundColor: primaryColor,
                     radius: 4,
@@ -156,4 +160,17 @@ class _MotherSignUpState extends State<MotherSignUp> {
       ),
     );
   }
+  void showLoadingIndicator() {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Row(
+        children: [
+          CircularProgressIndicator(),
+          SizedBox(width: 10),
+          Text('Loading...'),
+        ],
+      ),
+    ),
+  );
+}
 }

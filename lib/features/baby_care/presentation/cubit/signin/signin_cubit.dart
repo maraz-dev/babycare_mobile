@@ -64,6 +64,7 @@ class SigninCubit extends Cubit<SigninState> {
     emit(SigninLoading());
     try {
       await signupUsecase.call(email, password);
+      print("FUCKING FLAG SIGNED UP");
       await createDoctorUsecase.call(
         name,
         email,
@@ -73,11 +74,15 @@ class SigninCubit extends Cubit<SigninState> {
         ninNumber,
         officialHospitalContact,
       );
+
+      print("FUCKING FLAG DOCUMENT CREATED");
       emit(SigninSuccess());
     } on SocketException catch (e) {
       emit(SigninFailure(e.message));
+      print("The error is: $e");
     } catch (e) {
       emit(SigninFailure(e.toString()));
+      print("The error is: $e");
     }
   }
 
