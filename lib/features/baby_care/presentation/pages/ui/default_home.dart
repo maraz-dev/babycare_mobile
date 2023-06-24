@@ -1,8 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hephzibah/features/baby_care/data/models/user_model.dart';
 
-import '../../../domain/entities/user_entity.dart';
 import '../../cubit/user/user_cubit.dart';
 import 'admin_screens/admin_dash.dart';
 import 'doctor_screens/doctor_home_screen.dart';
@@ -29,38 +28,37 @@ class _DefaultHomeState extends State<DefaultHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // body: Center(
-      //   child: GestureDetector(
-      //     onTap: () async {
-      //       await BlocProvider.of<SigninCubit>(context).submitSignOut();
-      //     },
-      //     child: Text('Default Home'),
-      //   ),
-      // ),
       body: BlocBuilder<UserCubit, UserState>(
         builder: (_, state) {
           if (state is UserLoaded) {
-            final UserEntity currentUser =
-                state.users.firstWhere((user) => user.uid == widget.uid);
-            final String userClass = currentUser.userClass;
-            if (userClass == 'admin') {
-              print("USER IS AN ADMIN");
-              return const AdminDashboard();
-            } else if (userClass == 'mother') {
-              print("USER IS A MOTHER");
-              return HomePage(
-                uid: widget.uid,
-              );
-            } else if (userClass == 'doctor') {
-              print("USER IS A DOCTOR");
-              return DoctorHome(
-                uid: widget.uid,
-              );
-            }
+            return homeBody(state);
           }
           return const Center(child: CircularProgressIndicator());
         },
       ),
     );
+  }
+
+  Widget homeBody(UserLoaded users) {
+    final user = users.users.firstWhere(
+      (user) => user.uid == widget.uid,
+      orElse: () => const UserModel(
+        uid: "",
+        userClass: "",
+      ),
+    );
+    print(user);
+
+    if (user.userClass == 'mother') {
+      return HomePage(
+        uid: widget.uid,
+      );
+    } else if (user.userClass == 'doctor') {
+      return DoctorHome(
+        uid: widget.uid,
+      );
+    } else {
+      return const AdminDashboard();
+    }
   }
 }

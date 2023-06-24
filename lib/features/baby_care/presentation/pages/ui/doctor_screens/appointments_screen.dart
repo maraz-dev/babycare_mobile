@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hephzibah/common/commons.dart';
+import 'package:hephzibah/features/baby_care/domain/entities/appointment_entity.dart';
 
 import 'package:hephzibah/features/baby_care/domain/entities/doctor_entity.dart';
 
@@ -40,13 +41,18 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
       body: BlocBuilder<AppointmentCubit, AppointmentState>(
         builder: (context, state) {
           if (state is AppointmentLoaded) {
+            List<AppointmentEntity> appointments = state.appointments
+                .where((appointment) =>
+                    appointment.doctorId == widget.currentDoctor.doctorId)
+                .toList();
             return Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 20).copyWith(top: 20),
               child: ListView.builder(
-                itemCount: state.appointments.length,
+                itemCount: appointments.length,
                 itemBuilder: (BuildContext context, int index) {
-                  final date = state.appointments[index].appointmentDateandTime.toDate();
+                  final date =
+                      appointments[index].appointmentDateandTime.toDate();
                   return Container(
                     margin: const EdgeInsets.only(bottom: 20),
                     padding: const EdgeInsets.all(20),
@@ -63,7 +69,7 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
                         )
                       ],
                     ),
-                    child:  Row(
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
@@ -73,7 +79,7 @@ class _AppointmentsScreenState extends State<AppointmentsScreen> {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                         Text(
+                        Text(
                           "${date.day}/${date.month}/${date.year}",
                           style: TextStyle(
                             fontSize: 18,

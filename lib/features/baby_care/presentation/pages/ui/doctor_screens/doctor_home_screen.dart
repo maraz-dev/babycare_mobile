@@ -6,6 +6,7 @@ import 'package:hephzibah/features/baby_care/presentation/pages/ui/doctor_screen
 import '../../../../../../common/commons.dart';
 import '../../../../../../common/widgets/button.dart';
 import '../../../../../../common/widgets/custom_text_input.dart';
+import '../../../cubit/auth/auth_cubit.dart';
 import '../../../cubit/doctor/doctor_cubit.dart';
 import '../../../cubit/signin/signin_cubit.dart';
 import '../admin_screens/doctor_profile.dart';
@@ -71,8 +72,8 @@ class _DoctorHomeState extends State<DoctorHome> {
       body: BlocBuilder<DoctorCubit, DoctorState>(
         builder: (_, state) {
           if (state is DoctorLoaded) {
-            final currentDoctor = state.doctors.firstWhere((doctor) =>
-                doctor.doctorId == widget.uid);
+            final currentDoctor = state.doctors
+                .firstWhere((doctor) => doctor.doctorId == widget.uid);
             return Container(
               padding: const EdgeInsets.all(10),
               child: ListView(
@@ -96,7 +97,8 @@ class _DoctorHomeState extends State<DoctorHome> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => AppointmentsScreen(
-                                      currentDoctor: currentDoctor,)));
+                                      currentDoctor: currentDoctor,
+                                    )));
                       },
                       () {
                         Navigator.push(
@@ -178,9 +180,10 @@ class _DoctorHomeState extends State<DoctorHome> {
                       child: ButtonWidget(
                         text: 'Log Out',
                         press: () async {
+                          await BlocProvider.of<AuthCubit>(context).loggedOut();
                           await BlocProvider.of<SigninCubit>(context)
                               .submitSignOut();
-                          return Navigator.push(
+                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => const OnBoardingOne()));

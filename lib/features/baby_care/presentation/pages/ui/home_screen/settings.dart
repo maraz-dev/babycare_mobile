@@ -11,6 +11,7 @@ import 'package:hephzibah/features/baby_care/domain/entities/mother_entity.dart'
 import 'package:hephzibah/features/baby_care/presentation/pages/ui/home_screen/schedule_appointment.dart';
 import 'package:hephzibah/features/baby_care/presentation/pages/ui/splash_screen/onBoardingOne.dart';
 
+import '../../../cubit/auth/auth_cubit.dart';
 import '../../../cubit/signin/signin_cubit.dart';
 
 class Settings extends StatefulWidget {
@@ -101,7 +102,9 @@ class _SettingsState extends State<Settings> {
                 press: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>  ScheduleAppointment(currentMother: widget.currentMother,))),
+                        builder: (context) => ScheduleAppointment(
+                              currentMother: widget.currentMother,
+                            ))),
                 BackgroundColor: primaryColor,
                 radius: 4,
               ),
@@ -170,11 +173,13 @@ class _SettingsState extends State<Settings> {
                       child: ButtonWidget(
                         text: 'Log Out',
                         press: () async {
-                           await BlocProvider.of<SigninCubit>(context).submitSignOut();
-                           Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const OnBoardingOne()));
+                          await BlocProvider.of<AuthCubit>(context).loggedOut();
+                          await BlocProvider.of<SigninCubit>(context)
+                              .submitSignOut();
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const OnBoardingOne()));
                         },
                         BackgroundColor: primaryColor,
                         radius: 4,

@@ -11,6 +11,7 @@ import 'package:hephzibah/features/baby_care/presentation/pages/ui/admin_screens
 import 'package:hephzibah/features/baby_care/presentation/pages/ui/home_screen/widgets/descriptionWidgets.dart';
 import 'package:hephzibah/features/baby_care/presentation/pages/ui/splash_screen/onBoardingOne.dart';
 
+import '../../../cubit/auth/auth_cubit.dart';
 import '../../../cubit/signin/signin_cubit.dart';
 
 class AdminDashboard extends StatelessWidget {
@@ -155,6 +156,7 @@ class AdminDashboard extends StatelessWidget {
                       child: ButtonWidget(
                         text: 'Log Out',
                         press: () async {
+                           await BlocProvider.of<AuthCubit>(context).loggedOut();
                           await BlocProvider.of<SigninCubit>(context)
                               .submitSignOut();
                           return Navigator.push(

@@ -29,6 +29,7 @@ class KnowledgeCenterWidget extends StatelessWidget {
         children: [
           Container(
             height: 168,
+            width: double.infinity,
             //margin: EdgeInsets.symmetric(vertical: 0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
@@ -46,6 +47,7 @@ class KnowledgeCenterWidget extends StatelessWidget {
               color: Colors.black.withOpacity(0.5),
             ),
             height: 168,
+            width: double.infinity,
             padding: const EdgeInsets.all(12),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
