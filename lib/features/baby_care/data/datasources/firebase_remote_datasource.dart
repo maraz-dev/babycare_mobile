@@ -29,6 +29,7 @@ abstract class FirebaseRemoteDatasource {
     String ninNumber,
     String officialHospitalContact,
     String location,
+    String status,
   );
   Future<void> createMother(
     String name,
@@ -101,6 +102,7 @@ class FirebaseRemoteDatasourceImpl implements FirebaseRemoteDatasource {
     String ninNumber,
     String officialHospitalContact,
     String location,
+    String status,
   ) async {
     _doctorCollection.doc(_auth.currentUser!.uid).get().then((doctor) async {
       if (!doctor.exists) {
@@ -118,6 +120,7 @@ class FirebaseRemoteDatasourceImpl implements FirebaseRemoteDatasource {
           ninNumber: ninNumber,
           officialHospitalContact: officialHospitalContact,
           location: location,
+          status: status,
         ).toDocument();
         await _doctorCollection.doc(_auth.currentUser!.uid).set(newDoctor);
         return;

@@ -42,15 +42,16 @@ class _DefaultHomeState extends State<DefaultHome> {
           if (state is UserLoaded) {
             final UserEntity currentUser =
                 state.users.firstWhere((user) => user.uid == widget.uid);
-            if (currentUser.userClass == 'admin') {
+            final String userClass = currentUser.userClass;
+            if (userClass == 'admin') {
               print("USER IS AN ADMIN");
               return const AdminDashboard();
-            } else if (currentUser.userClass == 'mother') {
+            } else if (userClass == 'mother') {
               print("USER IS A MOTHER");
               return HomePage(
                 uid: widget.uid,
               );
-            } else if (currentUser.userClass == 'doctor') {
+            } else if (userClass == 'doctor') {
               print("USER IS A DOCTOR");
               return DoctorHome(
                 uid: widget.uid,

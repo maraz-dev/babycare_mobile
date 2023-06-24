@@ -117,14 +117,14 @@ class _MotherSignUpState extends State<MotherSignUp> {
                         babyId: babyId,
                       );
 
-              showLoadingIndicator();
+                      showLoadingIndicator();
                       Future.delayed(Duration(seconds: 5), () {
                         Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => BabyRegistration(
-                                    babyId: babyId,
-                                  )));
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => BabyRegistration(
+                                      babyId: babyId,
+                                    )));
                       });
                     },
                     BackgroundColor: primaryColor,
@@ -160,17 +160,18 @@ class _MotherSignUpState extends State<MotherSignUp> {
       ),
     );
   }
+
   void showLoadingIndicator() {
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Row(
-        children: [
-          CircularProgressIndicator(),
-          SizedBox(width: 10),
-          Text('Loading...'),
-        ],
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            CircularProgressIndicator(),
+            SizedBox(width: 10),
+            Text('Loading...'),
+          ],
+        ),
       ),
-    ),
-  );
-}
+    );
+  }
 }

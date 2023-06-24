@@ -62,6 +62,7 @@ class _DoctorsAdminState extends State<DoctorsAdmin> {
                         MaterialPageRoute(
                           builder: (context) => DoctorsProfile(
                             currentDoctor: state.doctors[index],
+                            isDoctor: false,
                           ),
                         ),
                       );

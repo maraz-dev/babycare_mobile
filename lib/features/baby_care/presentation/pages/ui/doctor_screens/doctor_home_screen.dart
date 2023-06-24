@@ -104,6 +104,7 @@ class _DoctorHomeState extends State<DoctorHome> {
                             MaterialPageRoute(
                                 builder: (context) => DoctorsProfile(
                                       currentDoctor: currentDoctor,
+                                      isDoctor: true,
                                     )));
                       },
                     ],

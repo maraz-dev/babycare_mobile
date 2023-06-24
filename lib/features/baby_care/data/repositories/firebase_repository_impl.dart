@@ -39,6 +39,7 @@ class FirebaseRepositoryImpl implements FirebaseRepository {
     String ninNumber,
     String officialHospitalContact,
     String location,
+    String status,
   ) async {
     return await firebaseRemoteDatasource.createDoctor(
       name,
@@ -49,6 +50,7 @@ class FirebaseRepositoryImpl implements FirebaseRepository {
       ninNumber,
       officialHospitalContact,
       location,
+      status,
     );
   }
 

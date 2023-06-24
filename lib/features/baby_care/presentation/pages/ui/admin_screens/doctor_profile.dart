@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../common/commons.dart';
@@ -8,8 +10,10 @@ class DoctorsProfile extends StatelessWidget {
   const DoctorsProfile({
     Key? key,
     required this.currentDoctor,
+    required this.isDoctor,
   }) : super(key: key);
   final DoctorEntity currentDoctor;
+  final bool isDoctor;
 
   @override
   Widget build(BuildContext context) {
@@ -261,15 +265,26 @@ class DoctorsProfile extends StatelessWidget {
                     SizedBox(
                       height: 10,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5.0),
-                      child: ButtonWidget(
-                        text: 'APPROVE',
-                        press: () => Navigator.pop(context),
-                        BackgroundColor: primaryColor,
-                        radius: 4,
-                      ),
-                    ),
+                    currentDoctor.status == "unapproved" && !isDoctor
+                        ? Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 5.0),
+                            child: ButtonWidget(
+                              text: 'APPROVE',
+                              press: () async {
+                                await FirebaseFirestore.instance
+                                    .collection('doctors')
+                                    .doc(currentDoctor.doctorId)
+                                    .update({'status': 'approved'});
+                                Navigator.pop(context);
+                              },
+                              BackgroundColor: primaryColor,
+                              radius: 4,
+                            ),
+                          )
+                        : SizedBox(
+                            height: 0,
+                            width: 0,
+                          ),
                   ],
                 ),
               ),

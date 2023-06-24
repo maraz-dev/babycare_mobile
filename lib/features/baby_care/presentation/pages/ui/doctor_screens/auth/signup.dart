@@ -185,12 +185,12 @@ class _SignUpState extends State<SignUp> {
                             double.parse(_experienceController.text.trim()),
                         ninNumber: _ninController.text.trim(),
                         officialHospitalContact: _contactController.text.trim(),
-                        location: state.capitalize(),
+                        location: state.capitalize(), status: 'unapproved',
                       );
 
                       showLoadingIndicator();
 
-                      Future.delayed(Duration(seconds: 3), () {
+                      Future.delayed(Duration(seconds: 5), () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(

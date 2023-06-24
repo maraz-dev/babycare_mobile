@@ -12,6 +12,7 @@ class DoctorModel extends DoctorEntity {
     required String ninNumber,
     required String officialHospitalContact,
     required String location,
+    required String status,
   }) : super(
           doctorId,
           name,
@@ -22,6 +23,7 @@ class DoctorModel extends DoctorEntity {
           ninNumber,
           officialHospitalContact,
           location,
+          status,
         );
 
   factory DoctorModel.fromJson(Map<String, dynamic> json) {
@@ -35,6 +37,7 @@ class DoctorModel extends DoctorEntity {
       ninNumber: json['ninNumber'],
       officialHospitalContact: json['officialHospitalContact'],
       location: json['location'],
+      status: json['status'],
     );
   }
 
@@ -51,6 +54,7 @@ class DoctorModel extends DoctorEntity {
       officialHospitalContact:
           (documentSnapshot.data()! as dynamic)['officialHospitalContact'],
       location: (documentSnapshot.data()! as dynamic)['location'],
+      status: (documentSnapshot.data()! as dynamic)['status'],
     );
   }
 
@@ -65,6 +69,7 @@ class DoctorModel extends DoctorEntity {
       "ninNumber": ninNumber,
       "officialHospitalContact": officialHospitalContact,
       "location": location,
+      "status": status,
     };
   }
 }

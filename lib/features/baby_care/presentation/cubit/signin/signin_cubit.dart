@@ -61,6 +61,7 @@ class SigninCubit extends Cubit<SigninState> {
     required String ninNumber,
     required String officialHospitalContact,
     required String location,
+    required String status,
   }) async {
     emit(SigninLoading());
     try {
@@ -75,6 +76,7 @@ class SigninCubit extends Cubit<SigninState> {
         ninNumber,
         officialHospitalContact,
         location,
+        status,
       );
 
       print("FUCKING FLAG DOCUMENT CREATED");
