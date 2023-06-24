@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hephzibah/features/baby_care/presentation/pages/ui/mother_screens/auth/community_page.dart';
 
 import '../../../../../../common/commons.dart';
 import '../../../../../../common/widgets/custom_text_input.dart';
@@ -132,7 +133,10 @@ class _HomePageState extends State<HomePage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const KnowledgeCenter()));
+                                builder: (context) => CommunityPage(
+                                      motherId: currentMother.motherId,
+                                      motherName: currentMother.name,
+                                    )));
                       },
                       () {
                         Navigator.push(

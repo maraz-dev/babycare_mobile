@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hephzibah/features/baby_care/domain/entities/text_message_entity.dart';
 import '../datasources/firebase_remote_datasource.dart';
 import '../../domain/entities/appointment_entity.dart';
 import '../../domain/entities/baby_entity.dart';
@@ -129,5 +130,15 @@ class FirebaseRepositoryImpl implements FirebaseRepository {
   @override
   Stream<List<AppointmentEntity>> getAppointments() {
     return firebaseRemoteDatasource.getAppointments();
+  }
+
+  @override
+  Stream<List<TextMessageEntity>> getMessages() {
+    return firebaseRemoteDatasource.getMessages();
+  }
+
+  @override
+  Future<void> sendTextMessage(TextMessageEntity textMessage) {
+    return firebaseRemoteDatasource.sendTextMessage(textMessage);
   }
 }

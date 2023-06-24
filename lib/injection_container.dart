@@ -1,4 +1,7 @@
 import 'package:get_it/get_it.dart';
+import 'package:hephzibah/features/baby_care/domain/usecases/get_messages_usecase.dart';
+import 'package:hephzibah/features/baby_care/domain/usecases/send_text_message_usecase.dart';
+import 'package:hephzibah/features/baby_care/presentation/cubit/communication/communication_cubit.dart';
 import 'features/baby_care/domain/usecases/book_appointment_usecase.dart';
 import 'features/baby_care/domain/usecases/create_baby_usecase.dart';
 import 'features/baby_care/domain/usecases/create_doctor_usecase.dart';
@@ -57,6 +60,10 @@ Future<void> init() async {
         bookAppointmentUsecase: sl.call(),
         getAppointmentsUsecase: sl.call(),
       ));
+  sl.registerFactory<CommunicationCubit>(() => CommunicationCubit(
+        getMessagesUseCase: sl.call(),
+        sendTextMessageUseCase: sl.call(),
+      ));
 
   //!useCae
   sl.registerLazySingleton<IsSigninUsecase>(
@@ -87,6 +94,10 @@ Future<void> init() async {
       () => BookAppointmentUsecase(repository: sl.call()));
   sl.registerLazySingleton<GetAppointmentsUsecase>(
       () => GetAppointmentsUsecase(repository: sl.call()));
+  sl.registerLazySingleton<GetMessagesUsecase>(
+      () => GetMessagesUsecase(repository: sl.call()));
+  sl.registerLazySingleton<SendTextMessageUseCase>(
+      () => SendTextMessageUseCase(repository: sl.call()));
 
   //repository
   sl.registerLazySingleton<FirebaseRepository>(

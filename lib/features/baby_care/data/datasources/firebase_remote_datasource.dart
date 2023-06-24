@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../../domain/entities/text_message_entity.dart';
 import '../models/baby_model.dart';
 import '../models/doctor_model.dart';
 import '../models/mother_model.dart';
@@ -11,6 +12,7 @@ import '../../domain/entities/doctor_entity.dart';
 import '../../domain/entities/mother_entity.dart';
 import '../../domain/entities/user_entity.dart';
 import '../models/appointment_model.dart';
+import '../models/text_message_model.dart';
 import '../models/user_model.dart';
 
 abstract class FirebaseRemoteDatasource {
@@ -54,6 +56,8 @@ abstract class FirebaseRemoteDatasource {
     String hospital,
   );
   Stream<List<AppointmentEntity>> getAppointments();
+  Future<void> sendTextMessage(TextMessageEntity textMessage);
+  Stream<List<TextMessageEntity>> getMessages();
 }
 
 class FirebaseRemoteDatasourceImpl implements FirebaseRemoteDatasource {
@@ -64,6 +68,10 @@ class FirebaseRemoteDatasourceImpl implements FirebaseRemoteDatasource {
   final _userCollection = FirebaseFirestore.instance.collection('users');
   final _appointmentCollection =
       FirebaseFirestore.instance.collection('appointments');
+  final _globalChatChannelCollection =
+      FirebaseFirestore.instance.collection("globalChatChannel");
+
+  final String channelId = "qKeiYQhgNkWFh3xf4r9w";
   @override
   Future<void> createBaby(
       String babyId,
@@ -226,5 +234,34 @@ class FirebaseRemoteDatasourceImpl implements FirebaseRemoteDatasource {
         querySnapshot.docs
             .map((docSnapshot) => AppointmentModel.fromSnapshot(docSnapshot))
             .toList());
+  }
+  
+  @override
+  Stream<List<TextMessageEntity>> getMessages() {
+    return _globalChatChannelCollection
+        .doc(channelId)
+        .collection("messages")
+        .orderBy("time")
+        .snapshots()
+        .map((querySnapshot) => querySnapshot.docs
+            .map((docSnapshot) => TextMessageModel.fromSnapshot(docSnapshot))
+            .toList());
+  }
+  
+  @override
+  Future<void> sendTextMessage(TextMessageEntity textMessage) async {
+   final newMessage = TextMessageModel(
+      message: textMessage.message,
+      recipientId: textMessage.recipientId,
+      time: textMessage.time,
+      receiverName: textMessage.receiverName,
+      senderId: textMessage.senderId,
+      senderName: textMessage.senderName,
+      type: textMessage.type,
+    );
+    _globalChatChannelCollection
+        .doc(channelId)
+        .collection("messages")
+        .add(newMessage.toDocument());
   }
 }

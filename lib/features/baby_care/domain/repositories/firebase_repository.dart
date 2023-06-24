@@ -4,6 +4,7 @@ import '../entities/baby_entity.dart';
 import '../entities/doctor_entity.dart';
 import '../entities/mother_entity.dart';
 
+import '../entities/text_message_entity.dart';
 import '../entities/user_entity.dart';
 
 abstract class FirebaseRepository {
@@ -47,4 +48,6 @@ abstract class FirebaseRepository {
     String hospital,
   );
   Stream<List<AppointmentEntity>> getAppointments();
+  Future<void> sendTextMessage(TextMessageEntity textMessage);
+  Stream<List<TextMessageEntity>> getMessages();
 }
