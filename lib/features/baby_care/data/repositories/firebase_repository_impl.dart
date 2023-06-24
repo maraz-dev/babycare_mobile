@@ -117,6 +117,8 @@ class FirebaseRepositoryImpl implements FirebaseRepository {
     String motherId,
     String location,
     String hospital,
+    String motherName,
+    String doctorName,
   ) async {
     return await firebaseRemoteDatasource.bookAppointment(
       appointmentDateandTime,
@@ -124,6 +126,8 @@ class FirebaseRepositoryImpl implements FirebaseRepository {
       motherId,
       location,
       hospital,
+      motherName,
+      doctorName,
     );
   }
 

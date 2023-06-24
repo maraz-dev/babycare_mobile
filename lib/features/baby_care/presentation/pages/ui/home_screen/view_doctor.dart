@@ -342,6 +342,8 @@ class _ViewDoctorState extends State<ViewDoctor> {
                             motherId: widget.currentMother.motherId,
                             location: widget.selectedLocation,
                             hospital: widget.selectedHospital,
+                            motherName: widget.currentMother.name,
+                            doctorName: widget.selectedDoctor.name,
                           );
                         },
                         BackgroundColor: primaryColor,

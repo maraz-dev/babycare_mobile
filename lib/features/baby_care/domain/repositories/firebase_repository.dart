@@ -46,6 +46,8 @@ abstract class FirebaseRepository {
     String motherId,
     String location,
     String hospital,
+    String motherName,
+    String doctorName,
   );
   Stream<List<AppointmentEntity>> getAppointments();
   Future<void> sendTextMessage(TextMessageEntity textMessage);

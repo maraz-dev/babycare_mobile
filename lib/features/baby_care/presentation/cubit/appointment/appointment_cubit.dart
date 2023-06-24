@@ -25,6 +25,8 @@ class AppointmentCubit extends Cubit<AppointmentState> {
     required String motherId,
     required String location,
     required String hospital,
+    required String motherName,
+    required String doctorName,
   }) async {
     emit(AppointmentLoading());
     try {
@@ -34,6 +36,8 @@ class AppointmentCubit extends Cubit<AppointmentState> {
         motherId,
         location,
         hospital,
+        motherName,
+        doctorName,
       );
       emit(AppointmentSuccess());
     } on SocketException catch (e) {

@@ -54,6 +54,8 @@ abstract class FirebaseRemoteDatasource {
     String motherId,
     String location,
     String hospital,
+    String motherName,
+    String doctorName,
   );
   Stream<List<AppointmentEntity>> getAppointments();
   Future<void> sendTextMessage(TextMessageEntity textMessage);
@@ -214,6 +216,8 @@ class FirebaseRemoteDatasourceImpl implements FirebaseRemoteDatasource {
     String motherId,
     String location,
     String hospital,
+    String motherName,
+    String doctorName,
   ) async {
     final uid = const Uuid().v4();
     final String appointmentId = uid;
@@ -224,6 +228,8 @@ class FirebaseRemoteDatasourceImpl implements FirebaseRemoteDatasource {
       motherId: motherId,
       location: location,
       hospital: hospital,
+      motherName: motherName,
+      doctorName: doctorName,
     ).toDocument();
     _appointmentCollection.doc(appointmentId).set(newAppointment);
   }

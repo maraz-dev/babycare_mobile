@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hephzibah/features/baby_care/presentation/pages/ui/doctor_screens/appointments_screen.dart';
 
 import '../../../../../../common/commons.dart';
 import '../../../../../../common/widgets/button.dart';
@@ -90,7 +91,13 @@ class _DoctorHomeState extends State<DoctorHome> {
                       "Make Profile Changes",
                     ],
                     onTapNav: [
-                      () {},
+                      () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AppointmentsScreen(
+                                      currentDoctor: currentDoctor,)));
+                      },
                       () {
                         Navigator.push(
                             context,

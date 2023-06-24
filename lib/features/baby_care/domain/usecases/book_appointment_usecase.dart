@@ -12,6 +12,8 @@ class BookAppointmentUsecase {
     String motherId,
     String location,
     String hospital,
+    String motherName,
+    String doctorName,
   ) async {
     repository.bookAppointment(
       appointmentDateandTime,
@@ -19,6 +21,8 @@ class BookAppointmentUsecase {
       motherId,
       location,
       hospital,
+      motherName,
+      doctorName,
     );
   }
 }

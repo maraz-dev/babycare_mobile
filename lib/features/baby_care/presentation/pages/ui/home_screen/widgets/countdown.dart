@@ -133,6 +133,8 @@ class _NextAppointmentCountdownWidgetState
               doctorId: "",
               location: "",
               hospital: "",
+              motherName: "",
+              doctorName: "",
             ),
           );
           final dateOfAppointment = currentAppointment.appointmentDateandTime;
