@@ -9,7 +9,6 @@ import 'package:hephzibah/common/widgets/custom_text_input.dart';
 import 'package:hephzibah/features/baby_care/presentation/cubit/signin/signin_cubit.dart';
 import 'package:hephzibah/features/baby_care/presentation/pages/ui/mother_screens/auth/baby_reg.dart';
 import 'package:hephzibah/features/baby_care/presentation/pages/ui/mother_screens/auth/signin.dart';
-import 'package:uuid/uuid.dart';
 
 class MotherSignUp extends StatefulWidget {
   const MotherSignUp({Key? key}) : super(key: key);
