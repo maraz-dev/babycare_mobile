@@ -88,8 +88,11 @@ class _BabyRegistrationState extends State<BabyRegistration> {
       body: BlocConsumer<SigninCubit, SigninState>(
         listener: (context, state) {
           if (state is SigninSuccess) {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (_) => const Home()));
+            showLoadingIndicator();
+            Future.delayed(const Duration(seconds: 5), () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const Home()));
+            });
           }
           if (state is SigninFailure) {
             // errors.clear();
@@ -307,4 +310,18 @@ class _BabyRegistrationState extends State<BabyRegistration> {
         firstDate: DateTime(2020),
         lastDate: DateTime(2024),
       );
+
+  void showLoadingIndicator() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            CircularProgressIndicator(),
+            SizedBox(width: 10),
+            Text('Loading...'),
+          ],
+        ),
+      ),
+    );
+  }
 }

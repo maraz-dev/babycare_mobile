@@ -38,8 +38,11 @@ class _SignUpState extends State<SignUp> {
       body: BlocConsumer<SigninCubit, SigninState>(
         listener: (context, state) {
           if (state is SigninSuccess) {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (_) => const Home()));
+            showLoadingIndicator();
+            Future.delayed(const Duration(seconds: 5), () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const Home()));
+            });
           }
           if (state is SigninFailure) {
             // errors.clear();
