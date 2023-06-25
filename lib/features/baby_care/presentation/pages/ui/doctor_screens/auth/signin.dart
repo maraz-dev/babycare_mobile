@@ -9,6 +9,7 @@ import 'package:hephzibah/common/widgets/button.dart';
 import 'package:hephzibah/common/widgets/custom_text_input.dart';
 import 'package:hephzibah/features/baby_care/presentation/pages/ui/doctor_screens/auth/signup.dart';
 import 'package:hephzibah/features/baby_care/presentation/pages/ui/doctor_screens/doctor_home_screen.dart';
+import 'package:hephzibah/main.dart';
 
 import '../../../../cubit/signin/signin_cubit.dart';
 
@@ -31,7 +32,7 @@ class _SignInState extends State<SignIn> {
         listener: (context, state) {
           if (state is SigninSuccess) {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => DoctorHome(uid: FirebaseAuth.instance.currentUser!.uid,)));
+                MaterialPageRoute(builder: (context) => const Home()));
           }
         },
         builder: (context, state) {
@@ -42,13 +43,13 @@ class _SignInState extends State<SignIn> {
           }
           return SingleChildScrollView(
             child: Container(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: 5),
+                    padding: const EdgeInsets.symmetric(vertical: 5),
                     child: Text(
                       'Email',
                       style: normalText.copyWith(fontSize: 15),
@@ -62,7 +63,7 @@ class _SignInState extends State<SignIn> {
                     themeColor: lightPrimaryColor,
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: 5),
+                    padding: const EdgeInsets.symmetric(vertical: 5),
                     child: Text(
                       'Password',
                       style: normalText.copyWith(fontSize: 15),

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hephzibah/features/baby_care/presentation/pages/ui/home_screen/home_page.dart';
+import 'package:hephzibah/main.dart';
 import '../../../../../../../common/commons.dart';
 import '../../../../../../../common/widgets/authHeaderWidget.dart';
 import '../../../../../../../common/widgets/button.dart';
@@ -31,7 +32,7 @@ class _MotherSignInState extends State<MotherSignIn> {
         listener: (context, state) {
           if (state is SigninSuccess) {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => HomePage(uid: FirebaseAuth.instance.currentUser!.uid,)));
+                MaterialPageRoute(builder: (context) =>const Home()));
           }
         },
         builder: (context, state) {

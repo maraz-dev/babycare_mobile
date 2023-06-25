@@ -1,6 +1,4 @@
 // ignore_for_file: use_build_context_synchronously
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/cli_commands.dart';
@@ -10,7 +8,6 @@ import 'package:hephzibah/common/widgets/button.dart';
 import 'package:hephzibah/common/widgets/custom_text_input.dart';
 import 'package:hephzibah/features/baby_care/presentation/cubit/signin/signin_cubit.dart';
 import 'package:hephzibah/features/baby_care/presentation/pages/ui/doctor_screens/auth/signin.dart';
-import 'package:hephzibah/features/baby_care/presentation/pages/ui/doctor_screens/doctor_home_screen.dart';
 import 'package:hephzibah/main.dart';
 
 class SignUp extends StatefulWidget {
@@ -38,7 +35,17 @@ class _SignUpState extends State<SignUp> {
         'Please enter your credentials to proceed',
         true,
       ),
-      body: BlocBuilder<SigninCubit, SigninState>(
+      body: BlocConsumer<SigninCubit, SigninState>(
+        listener: (context, state) {
+          if (state is SigninSuccess) {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (_) => const Home()));
+          }
+          if (state is SigninFailure) {
+            // errors.clear();
+            // addError(error: "Invalid Login");
+          }
+        },
         builder: (context, state) {
           if (state is SigninLoading) {
             return const Center(
@@ -191,12 +198,12 @@ class _SignUpState extends State<SignUp> {
 
                       showLoadingIndicator();
 
-                      Future.delayed(const Duration(seconds: 5), () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Home()));
-                      });
+                      // Future.delayed(const Duration(seconds: 5), () {
+                      //   Navigator.push(
+                      //       context,
+                      //       MaterialPageRoute(
+                      //           builder: (context) => const Home()));
+                      // });
                     },
                     BackgroundColor: primaryColor,
                     radius: 4,

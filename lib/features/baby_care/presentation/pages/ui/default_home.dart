@@ -57,8 +57,11 @@ class _DefaultHomeState extends State<DefaultHome> {
       return DoctorHome(
         uid: widget.uid,
       );
-    } else {
+    } else if (user.userClass == 'admin') {
       return const AdminDashboard();
     }
+    return const Center(
+      child: CircularProgressIndicator(),
+    );
   }
 }

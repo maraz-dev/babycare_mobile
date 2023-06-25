@@ -19,6 +19,7 @@ class MotherSignUp extends StatefulWidget {
 }
 
 class _MotherSignUpState extends State<MotherSignUp> {
+  String email = "";
   @override
   Widget build(BuildContext context) {
     TextEditingController _nameController = TextEditingController();
@@ -33,7 +34,21 @@ class _MotherSignUpState extends State<MotherSignUp> {
         true,
         mother: true,
       ),
-      body: BlocBuilder<SigninCubit, SigninState>(
+      body: BlocConsumer<SigninCubit, SigninState>(
+        listener: (context, state) {
+          if (state is SigninSuccess) {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (_) => BabyRegistration(
+                          babyId: email,
+                        )));
+          }
+          if (state is SigninFailure) {
+            // errors.clear();
+            // addError(error: "Invalid Login");
+          }
+        },
         builder: (context, state) {
           if (state is SigninLoading) {
             return const Center(
@@ -109,27 +124,27 @@ class _MotherSignUpState extends State<MotherSignUp> {
                   ButtonWidget(
                     text: 'SIGN UP',
                     press: () async {
-                      var uuid = const Uuid();
-                      final String babyId = uuid.v4();
-
+                      setState(() {
+                      });
+                      email = _emailController.text.trim();
                       await BlocProvider.of<SigninCubit>(context)
                           .registerMother(
                         email: _emailController.text.trim(),
                         password: _passwordController.text.trim(),
                         name: _nameController.text.trim(),
                         phoneNumber: _phoneController.text.trim(),
-                        babyId: babyId,
+                        babyId: email,
                       );
 
                       showLoadingIndicator();
-                      Future.delayed(const Duration(seconds: 5), () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => BabyRegistration(
-                                      babyId: babyId,
-                                    )));
-                      });
+                      // Future.delayed(const Duration(seconds: 5), () {
+                      //   Navigator.push(
+                      //       context,
+                      //       MaterialPageRoute(
+                      //           builder: (context) => BabyRegistration(
+                      //                 babyId: babyId,
+                      //               )));
+                      // });
                     },
                     BackgroundColor: primaryColor,
                     radius: 4,
