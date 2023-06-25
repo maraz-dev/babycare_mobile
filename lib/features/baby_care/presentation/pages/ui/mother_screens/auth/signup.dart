@@ -27,8 +27,12 @@ class _MotherSignUpState extends State<MotherSignUp> {
     TextEditingController _passwordController = TextEditingController();
     return Scaffold(
       appBar: authAppBar(
-          context, 'Sign Up', 'Please enter your credentials to proceed', true,
-          mother: true),
+        context,
+        'Sign Up',
+        'Please enter your credentials to proceed',
+        true,
+        mother: true,
+      ),
       body: BlocBuilder<SigninCubit, SigninState>(
         builder: (context, state) {
           if (state is SigninLoading) {
@@ -118,7 +122,7 @@ class _MotherSignUpState extends State<MotherSignUp> {
                       );
 
                       showLoadingIndicator();
-                      Future.delayed(Duration(seconds: 5), () {
+                      Future.delayed(const Duration(seconds: 5), () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(

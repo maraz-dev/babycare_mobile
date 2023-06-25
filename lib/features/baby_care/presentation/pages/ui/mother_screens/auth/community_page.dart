@@ -99,7 +99,7 @@ class _CommunityPageState extends State<CommunityPage> {
             ],
           ),
           Text(
-            "My Name",
+            widget.motherName,
             style: TextStyle(
               fontSize: 22,
               color: Colors.white,
@@ -159,7 +159,6 @@ class _CommunityPageState extends State<CommunityPage> {
       ),
     ));
   }
-
 
   Widget _loadingWidget() {
     return Scaffold(
@@ -221,7 +220,7 @@ class _CommunityPageState extends State<CommunityPage> {
     );
   }
 
-   _emojiWidget() {
+  _emojiWidget() {
     return Container(
       height: 40,
       width: 40,
@@ -251,7 +250,7 @@ class _CommunityPageState extends State<CommunityPage> {
     );
   }
 
-   _textFieldWidget() {
+  _textFieldWidget() {
     return ResponsiveBuilder(
       builder: (_, sizingInformation) {
         return Container(
@@ -275,7 +274,7 @@ class _CommunityPageState extends State<CommunityPage> {
     );
   }
 
-   Widget _sendMessageButton() {
+  Widget _sendMessageButton() {
     return InkWell(
       onTap: () {
         if (_messageController.text.isNotEmpty) {

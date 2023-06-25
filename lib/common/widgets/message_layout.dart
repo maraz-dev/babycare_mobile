@@ -74,7 +74,7 @@ class MessageLayout extends StatelessWidget {
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                     ConstrainedBox(
-                      constraints: BoxConstraints(maxWidth: 400),
+                      constraints: BoxConstraints(maxWidth: 200),
                       child: Text(
                         text == "" ? "" : text,
                         textAlign: align,

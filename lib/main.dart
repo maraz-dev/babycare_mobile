@@ -70,16 +70,40 @@ class MyApp extends StatelessWidget {
             bodyMedium: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
           ),
         ),
-        home: BlocBuilder<AuthCubit, AuthState>(
-          builder: (context, authState) {
-            if (authState is Authenticated) {
-              return DefaultHome(uid: authState.uid);
-            } else {
-              return const OnBoardingOne();
-            }
-          },
-        ),
+        home: const Home(),
       ),
+    );
+  }
+}
+
+class Home extends StatefulWidget {
+  const Home({
+    super.key,
+  });
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  @override
+  void initState() {
+    BlocProvider.of<AuthCubit>(context).appStarted();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<AuthCubit, AuthState>(
+      builder: (context, authState) {
+        if (authState is Authenticated) {
+          return DefaultHome(uid: authState.uid);
+        } else if (authState is Unauthenticated) {
+          return const OnBoardingOne();
+        } else {
+          return const CircularProgressIndicator();
+        }
+      },
     );
   }
 }

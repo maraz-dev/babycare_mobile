@@ -11,6 +11,7 @@ import 'package:hephzibah/common/widgets/custom_text_input.dart';
 import 'package:hephzibah/features/baby_care/presentation/cubit/signin/signin_cubit.dart';
 import 'package:hephzibah/features/baby_care/presentation/pages/ui/doctor_screens/auth/signin.dart';
 import 'package:hephzibah/features/baby_care/presentation/pages/ui/doctor_screens/doctor_home_screen.dart';
+import 'package:hephzibah/main.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -32,14 +33,12 @@ class _SignUpState extends State<SignUp> {
     TextEditingController _passwordController = TextEditingController();
     return Scaffold(
       appBar: authAppBar(
-          context, 'Sign Up', 'Please enter your credentials to proceed', true),
+        context,
+        'Sign Up',
+        'Please enter your credentials to proceed',
+        true,
+      ),
       body: BlocBuilder<SigninCubit, SigninState>(
-        // listener: (context, state) {
-        //   if (state is SigninSuccess) {
-        //     Navigator.push(context,
-        //         MaterialPageRoute(builder: (context) =>  DoctorHome(uid: FirebaseAuth.instance.currentUser!.uid,)));
-        //   }
-        // },
         builder: (context, state) {
           if (state is SigninLoading) {
             return const Center(
@@ -181,23 +180,22 @@ class _SignUpState extends State<SignUp> {
                         name: _nameController.text.trim(),
                         phoneNumber: _phoneController.text.trim(),
                         currentHospital: _hospitalController.text.trim(),
-                        yearsOfExperience:
-                            double.parse(_experienceController.text.trim()),
+                        yearsOfExperience: double.parse(
+                          _experienceController.text.trim(),
+                        ),
                         ninNumber: _ninController.text.trim(),
                         officialHospitalContact: _contactController.text.trim(),
-                        location: state.capitalize(), status: 'unapproved',
+                        location: state.capitalize(),
+                        status: 'unapproved',
                       );
 
                       showLoadingIndicator();
 
-                      Future.delayed(Duration(seconds: 5), () {
+                      Future.delayed(const Duration(seconds: 5), () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => DoctorHome(
-                                      uid: FirebaseAuth
-                                          .instance.currentUser!.uid,
-                                    )));
+                                builder: (context) => const Home()));
                       });
                     },
                     BackgroundColor: primaryColor,
