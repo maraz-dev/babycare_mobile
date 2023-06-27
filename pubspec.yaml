@@ -46,15 +46,22 @@ dependencies:
   get_it: ^7.6.0
   intl: ^0.18.1
   onboarding: ^3.1.0
+  rename: ^2.1.1
   responsive_builder: ^0.7.0
   table_calendar: ^3.0.9
   url_launcher: ^6.1.11
   uuid: ^3.0.7
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.13.1
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/app_icon_logo.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

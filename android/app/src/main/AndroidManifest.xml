@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hephzibahs.app.hephzibah">
    <application
-        android:label="hephzibah"
+        android:label="PregnancyPal"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
